@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+var topic = require('./routes/topic');
 
 var app = express();
 
@@ -23,7 +23,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index); // va chercher le fichier index.hs
-app.use('/users', users); // va chercher le fichier user.js
+app.use('/topic', topic); // va chercher le fichier user.js
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

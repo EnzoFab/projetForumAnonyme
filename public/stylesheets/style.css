@@ -1,6 +1,17 @@
-body {
+/*body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: url("/images/bg1.jpg");
+  background-size: cover;
+  padding: 0;
+  margin: 0;
+}*/
+
+
+
+.centerBlock{
+  margin-top: 50%;
+  margin-left: 50%;
 }
 
 a {

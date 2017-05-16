@@ -1,5 +1,12 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div.ui.center.aligned.basic.segment
+    h1 Free talk
+    div.column
+      div.ui.action.massive(style="margin-top:15%")
+        div.ui.inverted.transparent.icon.input.segment.inverted
+          input(type="text" placeholder="Choose a pseudo")
+          a(href='/topic').ui.right.labeled.icon.button.center
+            i.copy sign in
+
