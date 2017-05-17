@@ -2,12 +2,13 @@ extends layout
 
 block content
   div.ui.center.aligned.basic.segment
-    h1 Free talk
+    h1.ui.inverted.grey.header #{title}
     div.column
-      div.ui.action.massive(style="margin-top:15%")
-        div.ui.inverted.transparent.icon.input.segment.inverted.category
-          input#pseudo(type="text" placeholder="Choose a pseudo")
-          a(href='/topic').ui.right.labeled.icon.button.center
-            i.copy sign in
-        div.results
+      div.container.ui.fluid.inverted.segment.grey(style="margin-top:10%")
+        div.ui.action.massive
+          div.ui.inverted.icon.input.segment.inverted.category
+            input#pseudo(type="text" placeholder="Choose a pseudo")
+            a(href='/home').ui.right.labeled.icon.button.grey.center#start
+              i.copy sign in
+          div.results
 

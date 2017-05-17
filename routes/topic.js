@@ -11,7 +11,6 @@ router.get('/', function(req, res, next) {
     res.render('topics/allTopics', { title: 'Free2talk' });
 });
 
-
 router.get('/:n', function (req, res, next) {
     // first check if the topic exists
     // if yes display the topic otherwise display an error
@@ -19,6 +18,7 @@ router.get('/:n', function (req, res, next) {
     res.render('topics/topic', { title: 'Free2talk', name : topicName });
 
 });
+
 
 router.get('/error', function (req, res, next) {
 

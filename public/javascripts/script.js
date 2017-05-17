@@ -1,4 +1,58 @@
 $(document).ready(function () {
+    // check in the pseudo list if the one chosen is available
+    $('#start').click(function (e) {
+        e.preventDefault();
+        $.post(
+            "/newUser",
+            {
+                pseudo :$('#pseudo').val()
+            },function (data) {
+                switch (data){
+                    case 'succes':
+                        window.location =$('#start').attr('href');
+                        break;
+                    case 'cookieExist':
+                        window.location =  '/home';
+                        break;
+                    case 'pseudo Forgiven':
+                        // affiche un message sur la page
+                        break;
+                }
+
+            },'text'
+        );
+    });
+
+    $('.ui.dropdown') // drop down menu on the modal
+        .dropdown()
+    ;
+
+    $('.ui.basic.test.modal')
+        .modal({
+            closable  : false,
+            onApprove : function() {
+                console.log($('input[name="user"]').val());
+                $.post(
+                    "/newUser",{
+                        nickname : $('input[name="user"]').val()
+                    },
+                    function (data) {
+                        if(data ="success"){
+                            console.log(getCookie('MyCookie'));
+                            return true;
+                        }
+
+                        else{
+                            // do somthing on the page
+                            return false;
+                        }
+                    },'text'
+                );
+            }
+        })
+        .modal('show')
+    ;
+
    /* $('.ui.search').search({
         apiSettings: {
             url: '/autocomplete',

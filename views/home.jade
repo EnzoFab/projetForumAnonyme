@@ -1,0 +1,29 @@
+extends layout
+
+block content
+
+    div.ui.center.aligned.basic.segment
+        h1.ui.inverted.grey.header #{title}
+
+    div.ui.attached.menu.inverted.grey
+        div.right.item
+            div.ui.button.black Create new topic
+        div.item
+            div.ui.icon.input
+                input(type='text' placeholder='search')
+                i.search.icon
+    div.ui.basic.test.modal.inverted.segment.yellow
+        div.header Please choose your nickname
+
+        div.content
+            div.ui.fluid.selection.dropdown
+                input(type="hidden" name="user")
+                i.dropdown.icon
+                div.default.text Choose your nickname
+                div.menu
+                    - each pseudo in listPseudo
+                        div.item(data-value= pseudo ) #{pseudo}
+        div.actions
+            button.ui.button.approve valider
+
+    div.ui.raised.very.padded.segment

@@ -1,29 +1,31 @@
 /**
  * Created by ENZO on 17/05/2017.
  */
+var Pool = require('pg-pool')
 
+// contiendra toute nos requetes
+var config = require('./confDB');
 
+const pool = new Pool(config.PARAMETRE_CONNEXION); // connexion
 
-
-
-
-function create () {
-    const pg = require('pg');
-    var config = {
-        user: 'Enzo', //env var: PGUSER
-        database: 'postgres', //env var: PGDATABASE
-        password: 'enzo', //env var: PGPASSWORD
-        host: 'localhost', // Server hosting the postgres database
-        port: 5432, //env var: PGPORT
-        max: 10, // max number of clients in the pool
-        idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
-    };
-    const pool = new pg.Pool(config);
-
-
-    const query = pool.query(
-        'CREATE TABLE items(id SERIAL PRIMARY KEY, text VARCHAR(40) not null, complete BOOLEAN)');
+function querySelect() {
 
 }
 
-module.exports = create;
+function queryInsert() {
+
+}
+
+function create () {
+
+
+
+
+
+    const query = pool.query(
+        "Insert INTO UTILISATEUR VALUES('Enzo','code')");
+    console.log("connection " +query);
+
+}
+
+module.exports.querys = {insert:queryInsert, select: querySelect};
