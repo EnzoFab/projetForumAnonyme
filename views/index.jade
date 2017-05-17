@@ -5,8 +5,9 @@ block content
     h1 Free talk
     div.column
       div.ui.action.massive(style="margin-top:15%")
-        div.ui.inverted.transparent.icon.input.segment.inverted
-          input(type="text" placeholder="Choose a pseudo")
+        div.ui.inverted.transparent.icon.input.segment.inverted.category
+          input#pseudo(type="text" placeholder="Choose a pseudo")
           a(href='/topic').ui.right.labeled.icon.button.center
             i.copy sign in
+        div.results
 

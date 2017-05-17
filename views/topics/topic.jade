@@ -2,3 +2,9 @@ extends ../layout
 
 block content
     p say my name #{name}
+    div.ui.fluid.category.search
+        div.ui.icon.input
+            input.prompt(type="text" placeholder="Search animals...")
+            i.search.icon
+
+        div.results

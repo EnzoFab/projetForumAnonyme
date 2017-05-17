@@ -7,8 +7,20 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var topic = require('./routes/topic');
-
+var pgAd = require('./routes/query');
 var app = express();
+
+var fs = require('fs');
+
+var pseudos; // on lit dans le fichier
+fs.readFile('public/ressources/liste_pseudo.txt', 'utf8', function (err,data) {
+    if (err) {
+        return console.log(err);
+    }
+    console.log(data);
+    pseudos = data.split(" ");
+});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,8 +34,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index); // va chercher le fichier index.hs
-app.use('/topic', topic); // va chercher le fichier user.js
+app.get('/', index); // va chercher le fichier index.hs
+app.get('/topic', topic); // va chercher le fichier user.js
+app.get('/autocomplete',function (req, res, next) {
+    console.log(pseudos);
+    res.send(pseudos);
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -42,5 +58,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+pgAd();
 
 module.exports = app;
