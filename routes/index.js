@@ -22,18 +22,23 @@ router.get('/home', function (req,res,next) {
 
 
 router.post('/newUser', function (req, res, next) { // reception methode post
-
-    if( res.cookie.UserCookie  === undefined){
+    if( req.cookies.UserCookie  === undefined){
+        console.log("=============" +req.cookies.UserCookie+"=================");
         pseudo.PSEUDOLIST.splice(pseudo.PSEUDOLIST.indexOf(req.body.nickname), 1);
             // remove the pseudo from the list
 
-        //res.cookie('UserCookie',req.nickname);// cookie creation
+        res.cookie('UserCookie',req.body.nickname);// cookie creation
         // then insert in the DB
 
         res.send('success');
     }else{
         res.send("echec");
     }
+});
+
+
+router.post('/checkCookie',function (req, res, next) {
+   res.send(req.cookies.UserCookie === undefined);
 });
 
 

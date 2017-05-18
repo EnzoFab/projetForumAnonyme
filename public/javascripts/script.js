@@ -1,13 +1,23 @@
 $(document).ready(function () {
     // check in the pseudo list if the one chosen is available
+
+    $.post( // check the cookie
+        '/checkCookie',{},
+        function (data) {
+           if(data == true){ // if there isn't a cookie data = true and we display the modal
+               displayModal();
+
+           }
+        },'text'
+    );
+
     $('.message .close')
         .on('click', function() {
             $(this)
                 .closest('.message')
                 .transition('fade')
             ;
-        })
-    ;
+        });
 
 
 
@@ -47,38 +57,41 @@ $(document).ready(function () {
             .modal('show');
     });
 
-    $('.ui.basic.test.modal#connexionModal')
-        .modal({
-            closable  : false,
-            onApprove : function() {
-                if($('input[name="user"]').val() == ''){
-                    message = $('#message');
-                    message.fadeIn(); // display the message
-                    message.transition('shake')
-                    return false; // 0 nickname
+
+    function displayModal() {
+        $('.ui.basic.test.modal#connexionModal')
+            .modal({
+                closable  : false,
+                onApprove : function() {
+                    if($('input[name="user"]').val() == ''){
+                        message = $('#message');
+                        message.fadeIn(); // display the message
+                        message.transition('shake')
+                        return false; // 0 nickname
+                    }
+                    else {
+                        $.post(
+                            "/newUser",{
+                                nickname : $('input[name="user"]').val()
+                            },
+                            function (data) {
+                                if(data ="success"){
+
+                                    return true;
+                                }
+
+                                else{
+                                    // do somthing on the page
+                                    return false;
+                                }
+                            },'text'
+                        );
+                    }
+
                 }
-                else {
-                    $.post(
-                        "/newUser",{
-                            nickname : $('input[name="user"]').val()
-                        },
-                        function (data) {
-                            if(data ="success"){
-
-                                return true;
-                            }
-
-                            else{
-                                // do somthing on the page
-                                return false;
-                            }
-                        },'text'
-                    );
-                }
-
-            }
-        })
-        .modal('show'); // show the modal
+            })
+            .modal('show'); // show the modal
+    }
 
 
 

@@ -16,6 +16,10 @@ function queryInsert() {
 
 }
 
+function insertNewTopic() {
+    const query = pool.query()
+}
+
 function create () {
 
 
