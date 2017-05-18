@@ -37,7 +37,7 @@ $(document).ready(function () {
 
                     // if one input isn't filled
                     if($('input[name="color"]').val() == '' ||
-                        $('#catergory').val()== '' ||
+                        $('#category').val()== '' ||
                         $('input[name="topicName"]').val() == ''){
                         message = $('#topicMessage');
                         message.fadeIn(); // display the message
@@ -49,6 +49,7 @@ $(document).ready(function () {
                             {
                                 color : $('input[name="color"]').val(),
                                 topicName :  $('input[name="topicName"]').val(),
+                                category: $('#category').val()
                             }
                         );
                     }

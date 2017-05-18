@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var pseudo = require('./filesRead');
+const pool = require('./query'); // make queries
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -13,8 +14,18 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/create',function (req, res, next) {
+    if(req.cookies.UserCookie === undefined)
+        res.send('not connected');
+    else{
+        pool.pgQuery('INSERT INTO Topic VALUES($1,$2,$3,$4)',
+            [req.body.topicName, req.body.color, req.cookies.UserCookie,  Date.now()],
+            function (err) {
+                if (err) throw err;
+                else res.send('success');
+            });
+    }
 
-})
+});
 
 router.get('/:n', function (req, res, next) {
     // first check if the topic exists

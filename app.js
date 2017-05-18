@@ -10,7 +10,6 @@ var topic = require('./routes/topic');
 var categorie = require('./routes/categorie');
 
 
-var pgAd = require('./routes/query');
 
 var app = express();
 
@@ -38,7 +37,6 @@ app.use('/topic', topic); // va chercher le fichier topic.js
 
 
 
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -57,6 +55,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-pgAd.querys.insert();
 
 module.exports = app;

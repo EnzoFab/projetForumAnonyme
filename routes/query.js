@@ -7,29 +7,12 @@ var Pool = require('pg-pool')
 var config = require('./confDB');
 
 const pool = new Pool(config.PARAMETRE_CONNEXION); // connexion
+// We use pool cause it will be a lot of queries
+// So I use pool instead on Client cause in the seconde case we would have a lot of co - deco
+// and it would have slowed down the server
 
-function querySelect() {
-
-}
-
-function queryInsert() {
-
-}
-
-function insertNewTopic(nom, couleur, createur, date) {
-    const query = pool.query();
-}
-
-function create () {
-
-
-
-
-
-    const query = pool.query(
-        "Insert INTO UTILISATEUR VALUES('Enzo','code')");
-    console.log("connection " +query);
-
-}
-
-module.exports.querys = {insert:queryInsert, select: querySelect};
+// according to the tutorial https://github.com/brianc/node-postgres
+module.exports.pgQuery = function (qry, values, callbackFunction) {
+    console.log(' test query:', text, values);
+    return pool.query(qry, values, callbackFunction);
+};
