@@ -9,12 +9,12 @@ router.get('/', function(req, res, next) {
 
 router.post('/newUser', function (req, res, next) { // reception methode post
 
-    console.log("this is my nickname "+ req.body.nickname);
     if( res.cookie.UserCookie  === undefined){
         pseudo.PSEUDOLIST.splice(pseudo.PSEUDOLIST.indexOf(req.body.nickname), 1);
             // remove the pseudo from the list
-        console.log( pseudo.PSEUDOLIST)
+        console.log( pseudo.PSEUDOLIST);
         //res.cookie('UserCookie',req.nickname);// cookie creation
+        // then insert in the DB
 
         res.send('success');
     }else{
@@ -23,10 +23,7 @@ router.post('/newUser', function (req, res, next) { // reception methode post
 });
 
 
-router.get('/autocomplete',function (req, res, next) {
-    console.log(pseudos);
-    res.send(pseudos);
-});
+
 
 router.get('/home', function (req,res,next) {
     console.log( "homme " +pseudo.PSEUDOLIST);
