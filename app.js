@@ -8,10 +8,14 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var topic = require('./routes/topic');
 var categorie = require('./routes/categorie');
+
+
 var pgAd = require('./routes/query');
 
 var app = express();
 
+var slashes = require("connect-slashes")
+app.use(slashes(false)); // remove the trailing slashe which leads to different behaviour
 
 
 // view engine setup

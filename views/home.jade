@@ -1,42 +1,7 @@
 extends layout
 
 block content
-    div.ui.center.aligned.basic.segment
-        h1.ui.inverted.grey.header #{title}
-
-    div.ui.attached.huge.menu.inverted.yellow
-        div.item.left
-            a(href='/')
-                button.ui.button.grey
-                    i.home.icon.big
-        div.item.right
-            div.ui.button.grey Create new topic
-        div.item
-            div.ui.icon.input
-                input(type='text' placeholder='search')
-                i.search.icon
-
-
-                // modal
-    div.ui.basic.test.modal.inverted.segment.yellow
-        div.header Please choose your nickname
-        div.ui.message.inverted.red#message.hidden
-            div.header Pick one !
-            p Choose a nickname in the list below
-
-        div.content
-            div.ui.fluid.selection.dropdown
-                input(type="hidden" name="user")
-                i.dropdown.icon
-                div.default.text Nickname
-                div.menu
-                    - each pseudo in listPseudo
-                        div.item(data-value= pseudo ) #{pseudo}
-        div.actions
-            button.ui.button.approve.grey confirm
-        div.inline.field
-            -popup = "Free2talk is an application in which you can talk hidden behind an original nickname to other people like you on several topics. no insults, no name, no inscription, enjoy!"
-            i.big.circular.help.icon#information(data-content=popup data-variation="inverted wide")
-            div.ui.left.pointing.blue.basic.label.large What is Free2Talk
-            //
     div.ui.raised.very.padded.segment
+        div.ui.two.column.centered.grid
+            div.column
+                h3 best Topics

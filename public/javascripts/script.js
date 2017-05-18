@@ -13,13 +13,41 @@ $(document).ready(function () {
 
     // message on the home page
 
-    $('.dropdown.icon').click(function () {
-        $('.ui.dropdown') // drop down menu on the modal
-            .dropdown();
-    })
+    $('.ui.dropdown') // drop down menu on the modal
+        .dropdown();
+    
+    $("#buttonCreate").click(function () {
+        $('.ui.modal#createTopic')
+            .modal({
+                inverted: true,
+                onApprove:function () {
 
+                    console.log($('#catergory').val());
+                    // need to change the value
 
-    $('.ui.basic.test.modal')
+                    // if one input isn't filled
+                    if($('input[name="color"]').val() == '' ||
+                        $('#catergory').val()== '' ||
+                        $('input[name="topicName"]').val() == ''){
+                        message = $('#topicMessage');
+                        message.fadeIn(); // display the message
+                        message.transition('shake')
+                        return false; // 0 nickname
+                    }else {
+                        $.post(
+                            "/topic/create",
+                            {
+                                color : $('input[name="color"]').val(),
+                                topicName :  $('input[name="topicName"]').val(),
+                            }
+                        );
+                    }
+                }
+            })
+            .modal('show');
+    });
+
+    $('.ui.basic.test.modal#connexionModal')
         .modal({
             closable  : false,
             onApprove : function() {

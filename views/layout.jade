@@ -5,6 +5,85 @@ html
     link(rel='stylesheet', href='/stylesheets/Semantic-UI-CSS-master/semantic.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body.ui.segment
+    div.ui.center.aligned.basic.segment
+      h1.ui.inverted.yellow.header #{title}
+
+    div.ui.attached.huge.menu.inverted.yellow
+      div.item.left
+        a(href='/')
+          button.ui.button.grey
+            i.home.icon.big
+      div.item.right
+        div.ui.button.grey#buttonCreate Create new topic
+      div.item
+        div.ui.icon.input
+          input(type='text' placeholder='search')
+          i.search.icon
+
+
+            // modal
+    div.ui.basic.test.modal.inverted.segment.yellow#connexionModal
+      div.header Please choose your nickname
+      div.ui.message.inverted.red#message.hidden
+        div.header Pick one !
+        p Choose a nickname in the list below
+
+      div.content
+        div.ui.fluid.selection.dropdown
+          input(type="hidden" name="user")
+          i.dropdown.icon
+          div.default.text Nickname
+          div.menu
+            - each pseudo in listPseudo
+              div.item(data-value= pseudo ) #{pseudo}
+      div.actions
+        button.ui.button.approve.grey confirm
+      div.inline.field
+        -popup = "Free2talk is an application in which you can talk hidden behind an original nickname to other people like you on several topics. no insults, no name, no inscription, enjoy!"
+        i.big.circular.help.icon#information(data-content=popup data-variation="inverted wide")
+        div.ui.left.pointing.blue.basic.label.large What is Free2Talk
+
+
+     div.ui.modal.inverted.segment.grey#createTopic
+      div.header Create a new topic
+      div.ui.inverted.segment.yellow
+       div.ui.inverted.form.yellow
+         div.ui.message.inverted.red#topicMessage.hidden
+           div.header Fill the champs
+         div.two.fields
+           div.field
+             label Name
+             div.ui.icon.input
+              input(type='text' placeholder='topicName' name='topicName')
+              i.icon.write.large
+           div.field
+            label Category
+            select.ui.search.dropdown#category
+        div.field
+          label Color
+          div.ui.fluid.selection.dropdown
+            input(type="hidden" name="color")
+            i.dropdown.icon
+            div.default.text Select your topic color
+            div.menu
+              div.item(data-value='#016936')
+                div.ui.segment.inverted.green
+                  div green
+              div.item(data-value='#008080')
+                div.ui.segment.inverted.teal
+                  div Teal
+              div.item(data-value='#FE9A76')
+                div.ui.segment.inverted.orange
+                  div Orange
+              div.item(data-value='#A52A2A')
+                div.ui.segment.inverted.brown
+                  div Brown
+              div.item(data-value='#EE82EE')
+                div.ui.segment.inverted.violet
+                  div Purple
+        div.actions
+          button.grey.ui.button.approve#submitTopicCreation Submit
+
     block content
   script(src ='javascripts/jquery.js')
   script(src ='stylesheets/Semantic-UI-CSS-master/semantic.min.js')
