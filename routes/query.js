@@ -16,8 +16,8 @@ function queryInsert() {
 
 }
 
-function insertNewTopic() {
-    const query = pool.query()
+function insertNewTopic(nom, couleur, createur, date) {
+    const query = pool.query();
 }
 
 function create () {
