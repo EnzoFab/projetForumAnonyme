@@ -15,8 +15,26 @@
     "morgan": "~1.8.1",
     "pg": "^6.2.2",
     "serve-favicon": "~2.4.2"
-  },"engines": {
-  "node": "6.10.3"
+  },
+  "engines": {
+    "node": "6.10.3"
+  },
+  "description": "Projet de second semestre d'IG3 \r Programmé en Node.js l'idée est d'avoir un forum anonyme dans lequels des utilisateurs peuvent \r anonymement poster des messages sur un sujet de conversation. \r Ils doivent cependant respecter certaines règles: Aucun nom, prénoms ou insultes",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EnzoFab/projetForumAnonyme.git"
+  },
+  "keywords": [
+    "forum",
+    "free",
+    "hidden-Identity"
+  ],
+  "author": "Enzo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EnzoFab/projetForumAnonyme/issues"
+  },
+  "homepage": "https://github.com/EnzoFab/projetForumAnonyme#readme"
 }
-}
-
