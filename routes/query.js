@@ -12,7 +12,7 @@ const pool = new Pool(config.PARAMETRE_CONNEXION); // connexion
 // and it would have slowed down the server
 
 // according to the tutorial https://github.com/brianc/node-postgres
-module.exports.pgQuery = function (qry, values, callbackFunction) {
+module.exports.pgQuery = function (text, values, callbackFunction) {
     console.log(' test query:', text, values);
-    return pool.query(qry, values, callbackFunction);
+    return pool.query(text, values, callbackFunction);
 };

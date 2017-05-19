@@ -10,7 +10,6 @@ fs.readFile('public/ressources/liste_pseudo.txt', 'utf8', function (err,data) {
     }
     console.log(data);
     pseudos = data.split(" ");
-    console.log("pseudo lecteur" +pseudos);
     module.exports.PSEUDOLIST = pseudos;
 });
 

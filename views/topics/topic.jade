@@ -1,4 +1,37 @@
 extends ../layout
 
 block content
-    div listPseudo
+    div.ui.hidden.divider
+    div.ui.container
+        div.ui.stacked.segments
+            div.ui.segment(class="red").inverted.clearing
+                div.ui.center.aligned.segment.inverted(class="red")
+                    h1 Topic Name
+            //loop
+
+            div.ui.inverted(class="red").clearing.segment
+                div.ui.card.segment.right.floated.inverted.tertiary.yellow
+                    div.content
+                        div.description a description
+                        div.meta who
+                    div.extra.content
+                        span.left.floated like
+                            i.icon.thumbs.up.large.green
+                        span.right.floated dislike
+                            i.icon.thumbs.down.large.red
+
+                            // loop should end up here
+
+            div.ui.clearing.segment.inverted
+                div.ui.card.segment.left.floated
+            div.ui.clearing.segment.inverted
+                div.ui.card.segment.left.floated
+
+
+            // do not touch
+            form.ui.reply.form.segment.inverted.yellow.center.aligned
+                div.field
+                    textarea
+                div.ui.blue.labeled.submit.icon.button
+                    i.icon.send.outline.large
+                    div Tell Them

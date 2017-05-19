@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var topic = require('./routes/topic');
-var categorie = require('./routes/categorie');
+var category = require('./routes/category');
 
 
 
@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index); // va chercher le fichier index.hs
 app.use('/topic', topic); // va chercher le fichier topic.js
-
+app.use('/category',category);
 
 
 

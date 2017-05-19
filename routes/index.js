@@ -4,10 +4,13 @@ var pseudo = require('./filesRead');
 const pool = require('./query'); // make queries
 
 
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('home', { title: 'Free2talk', listPseudo : pseudo.PSEUDOLIST});
+
+    res.render('home', { title: 'Free2talk', listPseudo : pseudo.PSEUDOLIST });
+
+
+
 });
 
 
@@ -32,7 +35,7 @@ router.post('/newUser', function (req, res, next) { // reception methode post
 
 
 
-router.post('/checkCookie',function (req, res, next) {
+router.get('/checkCookie',function (req, res, next) {
     console.log( (req.cookies.UserCookie === undefined) );
    res.send( (req.cookies.UserCookie === undefined ) );
 });

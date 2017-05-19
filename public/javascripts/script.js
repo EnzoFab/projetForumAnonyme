@@ -1,16 +1,31 @@
 $(document).ready(function () {
-    // check in the pseudo list if the one chosen is available
 
-    $.post( // check the cookie
-        '/checkCookie',{val:10},
+    function get(url,callback, resultForm) {
+        $.get(
+            url,
+            callback,
+            resultForm
+        );
+    } // get methode with callback
+
+
+    get("/category/allCategories",
         function (data) {
-            console.log(data);
-           if(data == 'true'){ // if there isn't a cookie data = true and we display the modal
-               displayModal();
+            console.log(JSON.stringify(data));
+            console.log(data.length);
+            for(i=0;i< data.length; i++)
+                $("#category").append("<option value="+data[i].nameCat +">"+data[i].nameCat+"</option>");
 
-           }
-        },'text'
-    );
+        },'json'); // load all Categories
+
+    get('/checkCookie',function (data) {
+            console.log(data);
+            if(data == 'true'){ // if there isn't a cookie data = true and we display the modal
+                displayModal();
+            }
+    },'text');
+
+
 
     $('.message .close')
         .on('click', function() {
@@ -19,6 +34,13 @@ $(document).ready(function () {
                 .transition('fade')
             ;
         });
+
+    $('.ui.sticky')
+        .sticky({
+            context: '#example2',
+            pushing: true
+        })
+    ;
 
 
 
