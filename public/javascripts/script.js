@@ -2,9 +2,10 @@ $(document).ready(function () {
     // check in the pseudo list if the one chosen is available
 
     $.post( // check the cookie
-        '/checkCookie',{},
+        '/checkCookie',{val:10},
         function (data) {
-           if(data == true){ // if there isn't a cookie data = true and we display the modal
+            console.log(data);
+           if(data == 'true'){ // if there isn't a cookie data = true and we display the modal
                displayModal();
 
            }

@@ -33,7 +33,8 @@ router.post('/newUser', function (req, res, next) { // reception methode post
 
 
 router.post('/checkCookie',function (req, res, next) {
-   res.send(req.cookies.UserCookie === undefined);
+    console.log( (req.cookies.UserCookie === undefined) );
+   res.send( (req.cookies.UserCookie === undefined ) );
 });
 
 
