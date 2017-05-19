@@ -1,7 +1,7 @@
 {
   "name": "free2tell",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "start": "node ./bin/www"
   },
@@ -20,7 +20,7 @@
     "node": "6.10.3"
   },
   "description": "Projet de second semestre d'IG3 \r Programmé en Node.js l'idée est d'avoir un forum anonyme dans lequels des utilisateurs peuvent \r anonymement poster des messages sur un sujet de conversation. \r Ils doivent cependant respecter certaines règles: Aucun nom, prénoms ou insultes",
-  "main": "app.js",
+  "main": "www",
   "devDependencies": {},
   "repository": {
     "type": "git",
