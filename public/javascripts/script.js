@@ -1,5 +1,10 @@
 $(document).ready(function () {
 
+    $(".help.icon#information").popup({
+        on:'click'
+    });
+
+
     function get(url,callback, resultForm) {
         $.get(
             url,
@@ -53,6 +58,7 @@ $(document).ready(function () {
         $('.ui.modal#createTopic')
             .modal({
                 inverted: true,
+
                 onApprove:function () {
 
                     console.log($('#catergory').val());
@@ -73,7 +79,13 @@ $(document).ready(function () {
                                 color : $('input[name="color"]').val(),
                                 topicName :  $('input[name="topicName"]').val(),
                                 category: $('#category').val()
-                            }
+                            },function (data) {
+                                if(data == 'succes'){
+                                    setTimeout(function () {
+                                        window.location = $('input[name="topicName"]').val();
+                                    },1500)
+                                }
+                            },'text'
                         );
                     }
                 }
@@ -82,13 +94,16 @@ $(document).ready(function () {
     });
 
 
-    function displayModal() {
-        $('.ui.basic.test.modal#connexionModal')
+    function connexionModal() {
+        $("ui.modal.inverted.segment.yellow#loginModal")
             .modal({
+                inverted: true,
                 closable  : false,
+
                 onApprove : function() {
-                    if($('input[name="user"]').val() == ''){
-                        message = $('#message');
+                    if($('#loginNickname').val() == ''||
+                        $('#loginPassword').val()){
+                        message = $('#errorConnection');
                         message.fadeIn(); // display the message
                         message.transition('shake')
                         return false; // 0 nickname
@@ -96,9 +111,84 @@ $(document).ready(function () {
                     else {
                         $.post(
                             "/newUser",{
-                                nickname : $('input[name="user"]').val()
+                                nickname : $('#loginNickname').val(),
+                                password: $('#loginPassword').val()
                             },
                             function (data) {
+                                if(data ="success"){
+
+                                    return true;
+                                }
+
+                                else{
+                                    // do somthing on the page
+                                    return false;
+                                }
+                            },'text'
+                        );
+                    }
+
+                }
+            })
+            .modal('show');
+    }
+
+
+
+
+    function displayModal() {
+        $('.ui.basic.test.modal#createAccont')
+            .modal({
+                inverted: true,
+                closable  : false,
+                onDeny: function () {
+                    // it(s not really deny it just allows us to do 2 actions
+                    console.log($('#nickname').val());
+                    if($('#nickName').val() ==''||
+                        $('#password').val() =='') {
+                        message = $('#message');
+                        message.fadeIn(); // display the message
+                        message.transition('shake')
+                        return false; // 0 nickname
+                    }else {
+                        $.post(
+                            "/login",{
+                                nickname : $('#nickname').val(),
+                                password: $('#password').val()
+                            },
+                            function (data) {
+                                console.log(data)
+                                if(data ="success"){
+
+                                    return true;
+                                }
+
+                                else{
+                                    // do somthing on the page
+                                    return false;
+                                }
+                            },'text'
+                        );
+                    }
+                },
+
+
+                onApprove : function() {
+                    if($('#nickname').val() == ''||
+                        $('#password').val() ==''){
+                        message = $('#message');
+                        message.fadeIn(); // display the message
+                        message.transition('shake')
+                        return false; // 0 nickname
+                    }
+                    else {
+                        $.post(
+                            "/signIn",{
+                                nickname : $('#nickname').val(),
+                                password: $('#password').val()
+                            },
+                            function (data) {
+                                console.log(data)
                                 if(data ="success"){
 
                                     return true;
@@ -120,9 +210,9 @@ $(document).ready(function () {
 
 
 
-    $("#information").popup({
-        on:'click'
-    });
+
+
+
 
 
    /* $('.ui.search').search({

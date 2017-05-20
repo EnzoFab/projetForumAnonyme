@@ -24,10 +24,10 @@ router.post('/create',function (req, res, next) {
     if(req.cookies.UserCookie === undefined)
         res.send('not connected');
     else{
-        pool.pgQuery('INSERT INTO Topic VALUES($1,$2,$3,$4)',
-            [req.body.topicName, req.body.color, req.cookies.UserCookie,  Date.now()],
+        pool.pgQuery('INSERT INTO topic VALUES($1,$2,$3,$4)',
+            [req.body.topicName, req.body.color, req.cookies.UserCookie,  new Date()],
             function (err) {
-                if (err) throw err;
+                if (err) res.send('fail');
                 else res.send('success');
             });
     }
