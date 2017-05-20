@@ -24,12 +24,29 @@ router.post('/create',function (req, res, next) {
     if(req.cookies.UserCookie === undefined)
         res.send('not connected');
     else{
-        pool.pgQuery('INSERT INTO topic VALUES($1,$2,$3,$4)',
-            [req.body.topicName, req.body.color, req.cookies.UserCookie,  new Date()],
-            function (err) {
-                if (err) res.send('fail');
-                else res.send('success');
-            });
+      pool.pgQuery("SELECT COUNT(*) as nb FROM public.topic Where creator =$1 ",[req.cookies.UserCookie] ,function (err, resultat) {
+          if(err) res.send(err);
+          else if (resultat.rows[0].nb > 4){
+              res.send("You have already create 5 or more topics");
+          }else{
+              pool.pgQuery("SELECT COUNT(*) as nb FROM public.topic Where name =$1",[req.body.topicName],
+              function (error,result) {
+                  if(error) res.send(error);
+                  else if(result.rows[0].nb == 1){
+                        res.send("Change your topic name, this one already exists");
+                  }else {
+                      pool.pgQuery('INSERT INTO topic VALUES($1,$2,$3,$4,$5)',
+                          [req.body.topicName, req.body.color, req.cookies.UserCookie,
+                              new Date(), req.body.category],
+                          function (err, r3) {
+                              if (err) res.send(err);
+                              else res.send('success');
+                          });
+                  }
+              });
+          }
+      });
+
     }
 
 });

@@ -4,6 +4,11 @@ $(document).ready(function () {
         on:'click'
     });
 
+    function upFirstLetter(string)
+    {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
 
     function get(url,callback, resultForm) {
         $.get(
@@ -61,7 +66,7 @@ $(document).ready(function () {
 
                 onApprove:function () {
 
-                    console.log($('#catergory').val());
+                    console.log($('#category').val());
                     // need to change the value
 
                     // if one input isn't filled
@@ -69,24 +74,40 @@ $(document).ready(function () {
                         $('#category').val()== '' ||
                         $('input[name="topicName"]').val() == ''){
                         message = $('#topicMessage');
+                        message.html("Please fill all champs")
                         message.fadeIn(); // display the message
-                        message.transition('shake')
+                        message.transition('shake');
                         return false; // 0 nickname
                     }else {
                         $.post(
                             "/topic/create",
                             {
                                 color : $('input[name="color"]').val(),
-                                topicName :  $('input[name="topicName"]').val(),
+                                topicName :  $('input[name="topicName"]').val().trim(),
+                                    // trim() in order to remove beginning et trailling space
                                 category: $('#category').val()
-                            },function (data) {
-                                if(data == 'succes'){
-                                    setTimeout(function () {
-                                        window.location = $('input[name="topicName"]').val();
-                                    },1500)
+                            },
+                            function (data) {
+                                console.log(data);
+                                if(data == 'success'){
+                                    $("#topicMessage").fadeOut(function () {
+                                        $("#succesTopic").html("Topic created");
+                                        $("#succesTopic").fadeIn();
+                                        setTimeout(function () {
+                                            window.location = "/topic/"+$('input[name="topicName"]').val();
+                                        },1500);
+                                    });
+
+                                    return true;
+                                }else{
+                                    $("#topicMessage").html(data);
+                                    $("#topicMessage").fadeIn(); // display the message
+                                    $("#topicMessage").transition('shake');
+                                    return false; // the modal doesn't disappear
                                 }
                             },'text'
                         );
+                        return false;
                     }
                 }
             })
@@ -94,44 +115,6 @@ $(document).ready(function () {
     });
 
 
-    function connexionModal() {
-        $("ui.modal.inverted.segment.yellow#loginModal")
-            .modal({
-                inverted: true,
-                closable  : false,
-
-                onApprove : function() {
-                    if($('#loginNickname').val() == ''||
-                        $('#loginPassword').val()){
-                        message = $('#errorConnection');
-                        message.fadeIn(); // display the message
-                        message.transition('shake')
-                        return false; // 0 nickname
-                    }
-                    else {
-                        $.post(
-                            "/newUser",{
-                                nickname : $('#loginNickname').val(),
-                                password: $('#loginPassword').val()
-                            },
-                            function (data) {
-                                if(data ="success"){
-
-                                    return true;
-                                }
-
-                                else{
-                                    // do somthing on the page
-                                    return false;
-                                }
-                            },'text'
-                        );
-                    }
-
-                }
-            })
-            .modal('show');
-    }
 
 
 
@@ -143,18 +126,18 @@ $(document).ready(function () {
                 closable  : false,
                 onDeny: function () {
                     // it(s not really deny it just allows us to do 2 actions
-                    console.log($('#nickname').val());
-                    if($('#nickName').val() ==''||
-                        $('#password').val() =='') {
-                        message = $('#message');
+
+                    if($('#loginNickname').val() ==''||
+                        $('#loginPassword').val() =='') {
+                        message = $('#errorLoginLessage');
                         message.fadeIn(); // display the message
                         message.transition('shake')
                         return false; // 0 nickname
                     }else {
-                        $.post(
+                        $.post( //  try to login
                             "/login",{
-                                nickname : $('#nickname').val(),
-                                password: $('#password').val()
+                                nickname : upFirstLetter($('#loginNickname').val()),
+                                password: $('#loginPassword').val()
                             },
                             function (data) {
                                 console.log(data)
@@ -167,6 +150,7 @@ $(document).ready(function () {
                                     // do somthing on the page
                                     return false;
                                 }
+                                return false;
                             },'text'
                         );
                     }
@@ -174,6 +158,7 @@ $(document).ready(function () {
 
 
                 onApprove : function() {
+                    console.log($('#nickname').val())
                     if($('#nickname').val() == ''||
                         $('#password').val() ==''){
                         message = $('#message');
@@ -182,9 +167,10 @@ $(document).ready(function () {
                         return false; // 0 nickname
                     }
                     else {
+                        console.log($('#nickname').val());
                         $.post(
                             "/signIn",{
-                                nickname : $('#nickname').val(),
+                                nickname : upFirstLetter($('#nickname').val()),
                                 password: $('#password').val()
                             },
                             function (data) {
@@ -198,6 +184,7 @@ $(document).ready(function () {
                                     // do somthing on the page
                                     return false;
                                 }
+                                return false;
                             },'text'
                         );
                     }
@@ -205,6 +192,39 @@ $(document).ready(function () {
                 }
             })
             .modal('show'); // show the modal
+
+        get("/registredUser", function (data) {
+            if(data == 'error'){
+                console.log("error");
+            }else{
+                for(i=0;i< data.length; i++){
+                    $("#loginMenu")
+                        .append("<div class='item' value="+JSON.stringify(data[i].name)+">"+data[i].name+"</div>");
+
+                }
+
+            }
+        },'json');
+
+        get('/nickNames',function (data) {
+            if(data == 'error'){
+                console.log("error");
+            }else{
+                for(i=0;i< data.length; i++){
+                    $("#signInMenu")
+                        .append("<div class='item' value="+JSON.stringify(data[i].nickname)+">"+data[i].nickname+"</div>");
+                    // add to the menu
+                }
+
+            }
+
+
+        },'json');
+
+
+
+
+
     }
 
 
@@ -293,6 +313,47 @@ $(document).ready(function () {
             }
         });*/
 
-    $('.ui.search').search({ apiSettings: { url: '/autocomplete' } });
+
+    /* function connexionModal() {
+     $("ui.modal.inverted.segment.yellow#loginModal")
+     .modal({
+     inverted: true,
+     closable  : false,
+
+     onApprove : function() {
+     if($('#loginNickname').val() == ''||
+     $('#loginPassword').val()){
+     message = $('#errorConnection');
+     message.fadeIn(); // display the message
+     message.transition('shake')
+     return false; // 0 nickname
+     }
+     else {
+     $.post(
+     "/newUser",{
+     nickname : $('#loginNickname').val(),
+     password: $('#loginPassword').val()
+     },
+     function (data) {
+     if(data ="success"){
+
+     return true;
+     }
+
+     else{
+     // do somthing on the page
+     return false;
+     }
+     },'text'
+     );
+     }
+
+     }
+     })
+     .modal('show');
+     }
+*/
+
+     $('.ui.search').search({ apiSettings: { url: '/autocomplete' } });
 
 });

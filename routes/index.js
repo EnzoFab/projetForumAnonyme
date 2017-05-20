@@ -62,10 +62,10 @@ router.post('/signIn', function (req, res, next) { // get methode post
 
 router.post('/login',function (req, res, next) {
 
-    pool.pgQuery('SELECT * FROM user WHERE name=$1', [req.body.nickname],
+    pool.pgQuery('SELECT * FROM public.user WHERE name=$1', [req.body.nickname],
         function (err, result) {
             if(err) {
-                res.send('error running query', err);
+                res.send('error running query' + err);
             }
             else if(passwordHash.verify(req.body.password, result.rows[0].password) ){
                 // if the two password are equal
@@ -84,6 +84,24 @@ router.post('/login',function (req, res, next) {
 router.get('/checkCookie',function (req, res, next) {
     console.log( (req.cookies.UserCookie === undefined) );
    res.send( (req.cookies.UserCookie === undefined ) );
+});
+
+//all unused nicknames
+router.get('/nickNames',function (req, res,next) {
+    var query = 'SELECT nickname FROM public.nicknames N WHERE NOT exists( SELECT * FROM public.user U where U.name= N.nickname)ORDER BY nickname';
+    pool.pgQuery(query,function (err,result) {
+        if(err)res.send("error" +err);
+        else {
+            res.send(JSON.stringify(result.rows));
+        }
+    })
+});
+
+router.get('/registredUser',function (req,res,next) {
+    pool.pgQuery('SELECT name FROM public.user',function (err, result) {
+        if(err)res.send(err);
+        else res.send(JSON.stringify(result.rows));
+    })
 });
 
 

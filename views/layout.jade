@@ -24,6 +24,7 @@ html
             // modal
     div.ui.basic.test.modal.inverted.segment.yellow#createAccont
       div.header Create a new account
+        // will change it after
       div.ui.message.inverted.red#message.hidden
         div.header Pick one !
         p Choose a nickname in the list below and fill the password champ
@@ -32,42 +33,39 @@ html
           input(type="hidden" name="user")#nickname
           i.dropdown.icon
           div.default.text Nickname
-          div.menu
-            - each pseudo in listPseudo
-              div.item(data-value= pseudo ) #{pseudo}
+          div.menu#signInMenu
+
         label Password
         div.ui.input.fluid
           input(type='password' placeholder='password')#password
       div.actions
-        div.ui.buttons
-          button.ui.button.approve.blue SignIn
-          div.or(data-text='OR')
-          buttonu.ui.deny.button Login
+          button.ui.button.approve.grey SignIn
+
+      div.ui.horizontal.divider Or
+      div.header Connect to your account
+      div.ui.message.inverted.red#errorLoginLessage.hidden
+        div.header Pick one !
+        p Find your nickname in the list below and fill the password champ
+      div.content
+        div.ui.fluid.selection.dropdown
+          input(type="hidden" name="user")#loginNickname
+          i.dropdown.icon
+          div.default.text Nickname
+          div.menu#loginMenu
+        label Password
+          div.ui.input.fluid
+            input(type='password' placeholder='password')#loginPassword
+      div.actions
+          buttonu.ui.deny.button.grey Login
+
+
+
       div.inline.field
         -popup = "Free2talk is an application in which you can talk hidden behind an original nickname to other people like you on several topics. no insults, no name, no inscription, enjoy!"
         i(data-content=popup data-variation="inverted wide").big.circular.help.icon#information
         div.ui.left.pointing.blue.basic.label.large What is Free2Talk
 
 
-    div.ui.modal.inverted.segment.yellow#loginModal
-      div.header You already have an account ?
-      div.ui.message.inverted.red#errorConnection.hidden
-        div.header Fill the champs !
-          p Find your nickname in the list below and fill the password champ
-      div.content
-        div.ui.fluid.selection.dropdown
-          input(type="hidden" name="user")#loginNickname
-          i.dropdown.icon
-          div.default.text Nickname
-          div.menu
-            - each pseudo in listPseudo
-              div.item(data-value= pseudo ) #{pseudo}
-          label password
-          div.ui.input.fluid
-            input(type='password', placeholder='password')#loginPassword
-        div.actions
-          button.ui.button.approve.grey confirm
-        a(href='').ui.teal.tag.label#noAccount I haven't an account
 
 
      div.ui.modal.inverted.segment.grey#createTopic
@@ -75,7 +73,7 @@ html
       div.ui.inverted.segment.yellow
        div.ui.inverted.form.segment.very.padded.yellow
          div.ui.message.inverted.red#topicMessage.hidden
-           div.header Fill the champs
+         div.ui.message.inverted.green#succesTopic.hidden
          div.two.fields
            div.field
              label Name

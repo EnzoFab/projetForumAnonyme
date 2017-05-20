@@ -1,7 +1,7 @@
 /**
  * Created by ENZO on 17/05/2017.
  */
-var Pool = require('pg-pool')
+var Pool = require('pg-pool');
 
 // contiendra toute nos requetes
 var config = require('./confDB');
