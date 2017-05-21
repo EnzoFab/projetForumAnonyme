@@ -45,16 +45,16 @@ $(document).ready(function () {
             ;
         });
 
-    $('.ui.sticky')
-        .sticky({
-            context: '#example2',
-            pushing: true
-        })
-    ;
+
+    $('.main.menu').visibility({
+        type: 'fixed'
+    });
+
+   /* $("#sticky").visibility({
+        type:'fixed'
+    })*/
 
 
-
-    // message on the home page
 
     $('.ui.dropdown') // drop down menu on the modal
         .dropdown();
@@ -142,11 +142,12 @@ $(document).ready(function () {
                             function (data) {
                                 console.log(data)
                                 if(data ="success"){
-
+                                    location.reload();
                                     return true;
                                 }
 
                                 else{
+                                    $('#errorLoginLessage').html(data);
                                     // do somthing on the page
                                     return false;
                                 }
@@ -176,11 +177,12 @@ $(document).ready(function () {
                             function (data) {
                                 console.log(data)
                                 if(data ="success"){
-
+                                    location.reload();
                                     return true;
                                 }
 
                                 else{
+                                    $('#message').html(data);
                                     // do somthing on the page
                                     return false;
                                 }

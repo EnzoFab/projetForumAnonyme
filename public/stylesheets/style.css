@@ -6,7 +6,10 @@
   padding: 0;
   margin: 0;
 }*/
-
+.ui.fixed.sticky + p {
+  margin-top: 39px;
+  margin-bottom: 1%;
+}
 
 
 .centerBlock{

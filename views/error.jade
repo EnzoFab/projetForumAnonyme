@@ -1,6 +1,9 @@
-
+//
+   Created by ENZO on 20/05/2017.
+extends layout
 
 block content
-  h1 Error #{error.status} File #{message}
-  //h2=
-  //pre #{error.stack}
+    div.ui.container.segment.very.padded
+        div.ui.error.message
+            div.header Error
+            div #{message}

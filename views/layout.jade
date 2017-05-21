@@ -6,19 +6,19 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     div.ui.center.aligned.basic.segment
-      h1.ui.inverted.yellow.header #{title}
+      h1.ui.header #{title}
 
-    div.ui.attached.huge.menu.inverted.yellow
-      div.item.left
-        a(href='/')
-          button.ui.button.grey
-            i.home.icon.big
-      div.item.right
-        div.ui.button.grey#buttonCreate Create new topic
-      div.item
-        div.ui.icon.input
-          input(type='text' placeholder='search')
-          i.search.icon
+    div.ui.borderless.main.menu
+      div.ui.tex.container
+        div.item.left
+          a(href='/')
+              i.home.icon.huge.grey
+        div.item.right
+          div.ui.button.grey#buttonCreate Create new topic
+        div.item
+          div.ui.icon.input
+            input(type='text' placeholder='search')
+            i.search.icon
 
 
             // modal
@@ -93,16 +93,16 @@ html
                 div.item(data-value='green')
                   div.ui.segment.inverted.green
                     div green
-                div.item(data-value='Teal')
+                div.item(data-value='teal')
                   div.ui.segment.inverted.teal
                     div Teal
-                div.item(data-value='Orange')
+                div.item(data-value='orange')
                   div.ui.segment.inverted.orange
                     div Orange
-                div.item(data-value='Brown')
+                div.item(data-value='brown')
                   div.ui.segment.inverted.brown
                     div Brown
-                div.item(data-value='Purple')
+                div.item(data-value='purple')
                   div.ui.segment.inverted.violet
                     div Purple
           div.ui.hidden.divider
