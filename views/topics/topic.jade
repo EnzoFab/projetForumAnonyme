@@ -2,7 +2,7 @@ extends ../layout
 
 block content
     div.ui.hidden.divider
-    div.ui.container.segment.padded.inverted(class=topicData.color)
+    div.ui.container.segment.very.padded.inverted(class=topicData.color)
         div.ui.two.column.centered.grid
             -each message in allMessages
                 if currentUser == message.sender
@@ -29,7 +29,8 @@ block content
                                         span.date #{message.datesending}
                         div.column
                 div.row
-    div.ui.horizontal.divider
+
+    div.ui.horizontal.divider.hidden
     div.ui.horizontal.divider
     div.ui.borderless.bottom.fixed.menu
         div.ui.text.container

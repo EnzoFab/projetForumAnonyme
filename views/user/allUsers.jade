@@ -1,0 +1,14 @@
+//
+   Created by ENZO on 21/05/2017.
+extends ../layout
+
+block content
+    div.ui.raised.very.padded.segment.container
+        h1.header All Users
+        div.ui.divider
+        div.ui.grid
+        -each user in allUser
+            div.column
+                div.ui.segment
+                    -var url ="/user/"+user.name
+                    a.header(href=url) #{user.name}

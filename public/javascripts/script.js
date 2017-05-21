@@ -23,8 +23,13 @@ $(document).ready(function () {
         function (data) {
             console.log(JSON.stringify(data));
             console.log(data.length);
-            for(i=0;i< data.length; i++)
-                $("#category").append("<option value="+data[i].nameCat +">"+data[i].nameCat+"</option>");
+            for(i=0;i< data.length; i++){
+                $("#category").append("<option value="+data[i].namecat +">"+data[i].namecat+"</option>");
+                $("#categoryMenu").append("<a class='item' href='/category/" + data[i].namecat + "'>"
+                    + data[i].namecat + "</a>");
+            }
+
+
 
         },'json'); // load all Categories
 
@@ -50,11 +55,22 @@ $(document).ready(function () {
         type: 'fixed'
     });
 
-   /* $("#sticky").visibility({
+   $(".sticky").visibility({
         type:'fixed'
-    })*/
+    })
 
 
+   $("#showSideBar").click(function () {
+       $('.ui.sidebar')
+           .sidebar('toggle')
+   });
+
+
+
+    $('.overlay.overlay').visibility({
+        type :'fixed',
+        offset: 100
+    })
 
     $('.ui.dropdown') // drop down menu on the modal
         .dropdown();
@@ -135,7 +151,7 @@ $(document).ready(function () {
                         return false; // 0 nickname
                     }else {
                         $.post( //  try to login
-                            "/login",{
+                            "/user/login",{
                                 nickname : upFirstLetter($('#loginNickname').val()),
                                 password: $('#loginPassword').val()
                             },
@@ -170,7 +186,7 @@ $(document).ready(function () {
                     else {
                         console.log($('#nickname').val());
                         $.post(
-                            "/signIn",{
+                            "/user/signIn",{
                                 nickname : upFirstLetter($('#nickname').val()),
                                 password: $('#password').val()
                             },
@@ -195,7 +211,7 @@ $(document).ready(function () {
             })
             .modal('show'); // show the modal
 
-        get("/registredUser", function (data) {
+        get("/user/registredUser", function (data) {
             if(data == 'error'){
                 console.log("error");
             }else{
@@ -208,7 +224,7 @@ $(document).ready(function () {
             }
         },'json');
 
-        get('/nickNames',function (data) {
+        get('/user/nickNames',function (data) {
             if(data == 'error'){
                 console.log("error");
             }else{
