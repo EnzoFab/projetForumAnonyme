@@ -8,7 +8,6 @@ var get_ip = require('ipware')().get_ip;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-
     res.render('home', { title: 'Free2talk', listPseudo : pseudo.PSEUDOLIST });
 });
 

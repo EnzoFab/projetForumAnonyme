@@ -23,8 +23,19 @@ router.get('/',function (req, res,next) { // get all user sorted by the number o
 });
 
 
+router.get('/mySpace',function (req, res, next) {
+    if(req.cookies.UserCookie === undefined){
+        res.redirect('/user');
+    }else{
+        res.render("user/me",{title:'Free2talk', me:req.cookies.UserCookie});
+    }
+});
 
 
+
+router.post('/update',function (req, res, next) {
+
+});
 
 
 router.post('/signIn', function (req, res, next) { // get methode post

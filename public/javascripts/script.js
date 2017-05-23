@@ -1,5 +1,60 @@
 $(document).ready(function () {
 
+
+    //socket.emit('connection', "hum");
+
+   /* if(window.location.href.includes("/topic/")){ // check the url of the page to see we are on a topic page
+        var socket =io.connect(); // room
+        topicName = window.location.href.split("/topic")[1]; // get the topicName
+        socket.on('connect', function() {
+            // Connected, let's sign-up for to receive messages for this room
+            socket.emit('room', topicName);
+        });
+
+        socket.on('new_user',function (message) {
+            console.log("nouveau client");
+        });
+
+        socket.on('message_received', function (data) {
+            $('.grid').append(); // add the message
+        });
+
+        console.log(topicName);
+        console.log(window.location.href);
+
+
+    } */
+
+
+    function appendNewMessage(message, bool){ // append a new message to the grid
+        // if true it's my message otherwise the message from another user
+        if(bool){ // it's me
+            $('.grid').append('<div class="row"><div class="column"></div> <div class="column"></div>' +
+                '<div class="column">  <div class="ui card yellow"><div class="content"><div class="meta right floated">' +
+                '<a class="author" href="/user/' +message.nickname +'">' + message.nickname+
+                '</a></div><div class="description">'+message.text + '</div> <div class="meta left floated">' +
+                '<span class="date">' +message.date + '</span>'+
+                '</div> ::after' +
+                '</div>::after</div>  </div> </div>');
+        }else{
+
+        }
+
+    }
+
+    $('#sendMessage').click(function (e) {
+        e.preventDefault();
+        console.log($(this).parent().find('input[type="text"]').val() ) ;
+        console.log(new Date().toLocaleDateString('en-GB'));
+    });
+
+
+
+
+
+
+
+
     $(".help.icon#information").popup({
         on:'click'
     });
@@ -36,7 +91,7 @@ $(document).ready(function () {
     get('/checkCookie',function (data) {
             console.log(data);
             if(data == 'true'){ // if there isn't a cookie data = true and we display the modal
-                displayModal();
+                //displayModal();
             }
     },'text');
 
@@ -70,7 +125,7 @@ $(document).ready(function () {
     $('.overlay.overlay').visibility({
         type :'fixed',
         offset: 100
-    })
+    });
 
     $('.ui.dropdown') // drop down menu on the modal
         .dropdown();
@@ -94,12 +149,23 @@ $(document).ready(function () {
                         message.fadeIn(); // display the message
                         message.transition('shake');
                         return false; // 0 nickname
+
+                    }else if( $('input[name="topicName"]').val().includes('/') ||$('input[name="topicName"]').val().includes('\\') ||
+                        $('input[name="topicName"]').val().includes('\n') || $('input[name="topicName"]').val().includes('\0')
+                        || $('input[name="topicName"]').val().includes('<') ||$('input[name="topicName"]').val().includes('>'))
+                    {
+
+                            message = $('#topicMessage');
+                            message.html("Invalid title, it might include special caracter");
+                            message.fadeIn(); // display the message
+                            message.transition('shake');
+                            return false;
                     }else {
                         $.post(
                             "/topic/create",
                             {
                                 color : $('input[name="color"]').val(),
-                                topicName :  $('input[name="topicName"]').val().trim(),
+                                topicName :  $('input[name="topicName"]').val().trim().replace('/', '-'),
                                     // trim() in order to remove beginning et trailling space
                                 category: $('#category').val()
                             },

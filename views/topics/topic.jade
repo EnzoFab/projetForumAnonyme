@@ -5,6 +5,7 @@ block content
     div.ui.container.segment.very.padded.inverted(class=topicData.color)
         div.ui.two.column.centered.grid
             -each message in allMessages
+                -var url = '/user/'+message.sender
                 if currentUser == message.sender
                     div.row
                         div.column
@@ -12,7 +13,7 @@ block content
                             div.ui.card.yellow
                                 div.content
                                     div.meta.right.floated
-                                        a.author #{message.sender}
+                                        a(href=url).author #{message.sender}
                                     div.description #{message.textmessage}
                                     div.meta.left.floated
                                         span.date #{message.datesending}
@@ -23,10 +24,11 @@ block content
                             div.ui.card.yellow
                                 div.content
                                     div.meta.right.floated
-                                        a.author #{message.sender}
+
+                                        a(href=url).author #{message.sender}
                                     div.description #{message.textmessage}
                                     div.meta.left.floated
-                                        span.date #{message.datesending}
+                                        span.date #{message.datesending.toLocaleString('en-GB')}
                         div.column
                 div.row
 
@@ -40,4 +42,4 @@ block content
             div.item.left
                 div.ui.transparent.action.input.massive
                     input(type="text" placeholder="tap your message ")
-                    div.ui.button.grey send
+                    div.ui.button.grey#sendMessage send

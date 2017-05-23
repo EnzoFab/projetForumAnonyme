@@ -1,4 +1,23 @@
 extends ../layout
 
 block content
-    div topiesss
+    div.ui.raised.very.padded.segment.container
+        div.ui.three.column.grid
+            -each topic in allTopics
+                div.column
+                    div.ui.card.segment.inverted(class=topic.color)
+                        div.content
+                            -var url = "/topic/" + topic.name
+                            a.header(href=url) #{topic.name}
+                            div.meta.right.floated
+                                -var author = "/user/"+topic.creator
+                                a.author(href=author) by #{topic.creator}
+                            div.meta.left.floated
+                                span.date created the #{topic.creationdate}
+                        div.content
+                            -url = '/category/' + topic.category
+                            a(href=url).ui.red.horizontal.label Category: #{topic.category}
+                        div.extra.content
+                            i.icon.mail.large
+                            div #{topic.nbmessage} response(s)
+                            div.floating.ui.label.red #{topic.nbmessage}

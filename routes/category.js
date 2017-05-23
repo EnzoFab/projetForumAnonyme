@@ -33,10 +33,10 @@ router.get('/:n',function (req, res, next) {
 
                         } else{
                             res.render('category/category',
-                                {title:'Free2talk', allTopics : resultat.rows, size:resultat.rows.length});
+                                {title:'Free2talk', allTopics : resultat.rows, size:resultat.rows.length, nameCat: req.params.n});
                             // send the length of the array resultat.rows in order to organize our layout
                         }
-                    })
+                    });
             }
         });
 });

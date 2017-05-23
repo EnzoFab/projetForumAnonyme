@@ -5,6 +5,7 @@ extends ../layout
 
 block content
     div.ui.raised.very.padded.segment.container
+        h1.header #{nameCat}
         div.ui.three.column.grid
             -each topic in allTopics
                 div.column
