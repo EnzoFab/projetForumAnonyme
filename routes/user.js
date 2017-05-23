@@ -7,7 +7,7 @@ var pseudo = require('./filesRead');
 const pool = require('./query'); // make queries
 const passwordHash = require('password-hash');
 var date = require('date-and-time');
-var get_ip = require('ipware')().get_ip;
+
 
 
 router.get('/',function (req, res,next) { // get all user sorted by the number of message the have sent
@@ -44,7 +44,10 @@ router.post('/signIn', function (req, res, next) { // get methode post
         pseudo.PSEUDOLIST.splice(pseudo.PSEUDOLIST.indexOf(req.body.nickname), 1);
         // remove the pseudo from the list
 
-        var ip_info = get_ip(req)['clientIp'];
+        var ip = req.headers['x-forwarded-for'] ||
+            req.connection.remoteAddress ||
+            req.socket.remoteAddress ||
+            req.connection.socket.remoteAddress;;
         pool.pgQuery('SELECT Count(*) as nb FROM public.user  WHERE name =$1',
             [ip_info],function (err, resultat) {
                 if(err)res.send('has occurred retry later ' + err);
@@ -55,7 +58,7 @@ router.post('/signIn', function (req, res, next) { // get methode post
                     // then insert in the DB
                     pool.pgQuery(
                         "INSERT INTO public.user VALUES($1,$2,$3,$4)",
-                        [req.body.nickname, ip_info, hachPassword, new Date()],
+                        [req.body.nickname, ip, hachPassword, new Date()],
                         function (err,result) {
                             if(err){  res.send('error running query ' +err);
                                 //res.send('An Error has occurred retry later');
