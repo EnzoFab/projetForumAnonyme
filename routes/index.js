@@ -2,9 +2,7 @@ var express = require('express');
 var router = express.Router();
 var pseudo = require('./filesRead');
 const pool = require('./query'); // make queries
-const passwordHash = require('password-hash');
 var date = require('date-and-time');
-var get_ip = require('ipware')().get_ip;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
