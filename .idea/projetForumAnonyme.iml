@@ -9,6 +9,7 @@
     <content url="file://$MODULE_DIR$/node_modules/ipware" />
     <content url="file://$MODULE_DIR$/node_modules/password-hash" />
     <content url="file://$MODULE_DIR$/node_modules/pg" />
+    <content url="file://$MODULE_DIR$/node_modules/socket.io" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
