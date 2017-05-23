@@ -33,9 +33,7 @@ router.get('/mySpace',function (req, res, next) {
 
 
 
-router.post('/update',function (req, res, next) {
 
-});
 
 
 router.post('/signIn', function (req, res, next) { // get methode post

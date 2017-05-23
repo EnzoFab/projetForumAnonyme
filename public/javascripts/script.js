@@ -91,7 +91,7 @@ $(document).ready(function () {
     get('/checkCookie',function (data) {
             console.log(data);
             if(data == 'true'){ // if there isn't a cookie data = true and we display the modal
-                //displayModal();
+                displayModal();
             }
     },'text');
 
