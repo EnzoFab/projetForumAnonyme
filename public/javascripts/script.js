@@ -3,41 +3,54 @@ $(document).ready(function () {
 
     //socket.emit('connection', "hum");
 
-   /* if(window.location.href.includes("/topic/")){ // check the url of the page to see we are on a topic page
-        var socket =io.connect(); // room
-        topicName = window.location.href.split("/topic")[1]; // get the topicName
-        socket.on('connect', function() {
-            // Connected, let's sign-up for to receive messages for this room
-            socket.emit('room', topicName);
-        });
+   if(window.location.href.includes("/topic/")){ // check the url of the page to see we are on a topic page
 
+        topicName = window.location.href.split("/topic")[1]; // get the topicName
+
+       var socket =io.connect(topicName); // room
+       socket.on('connected',function () {
+           console.log('connected to the room' +topicName );
+       });
         socket.on('new_user',function (message) {
             console.log("nouveau client");
         });
 
+
         socket.on('message_received', function (data) {
-            $('.grid').append(); // add the message
+            console.log("message received");
+            appendNewMessage(data,false);
         });
 
         console.log(topicName);
         console.log(window.location.href);
 
 
-    } */
+
+    }
 
 
     function appendNewMessage(message, bool){ // append a new message to the grid
         // if true it's my message otherwise the message from another user
         if(bool){ // it's me
-            $('.grid').append('<div class="row"><div class="column"></div> <div class="column"></div>' +
+            $('.grid').append('<div class="row"><div class="column"></div>' +
                 '<div class="column">  <div class="ui card yellow"><div class="content"><div class="meta right floated">' +
-                '<a class="author" href="/user/' +message.nickname +'">' + message.nickname+
-                '</a></div><div class="description">'+message.text + '</div> <div class="meta left floated">' +
+                '<a class="author ui label blue image author" href="/user/' +message.nickname +'"><img src="/images/avatar/'+ message.avatar+
+                '"/><div class="detail">'
+                + message.nickname+
+                '</div> </a></div><div class="description">'+message.text + '</div> <div class="meta left floated">' +
                 '<span class="date">' +message.date + '</span>'+
                 '</div> ::after' +
                 '</div>::after</div>  </div> </div>');
         }else{
-
+            $('.grid').append('<div class="row">' +
+                '<div class="column">  <div class="ui card yellow"><div class="content"><div class="meta right floated">' +
+                '<a class="author ui label blue image author" href="/user/' +message.nickname +'"><img src="/images/avatar/'+ message.avatar+
+                '"/><div class="detail">'
+                + message.nickname+
+                '</div> </a></div><div class="description">'+message.text + '</div> <div class="meta left floated">' +
+                '<span class="date">' +message.date + '</span>'+
+                '</div> ::after' +
+                '</div>::after</div>  </div> <div class="column"></div></div>');
         }
 
     }
@@ -46,6 +59,15 @@ $(document).ready(function () {
         e.preventDefault();
         console.log($(this).parent().find('input[type="text"]').val() ) ;
         console.log(new Date().toLocaleDateString('en-GB'));
+        message = {
+            nickname: 'Adibou',
+            text: $(this).parent().find('input[type="text"]').val(),
+            date: new Date().toLocaleDateString('en-GB')
+        }
+        topicName = window.location.href.split("/topic")[1]; // get the topicName
+        appendNewMessage(message,true);
+        // insertBD
+        socket.emit('new_message', message);
     });
 
 
@@ -66,12 +88,9 @@ $(document).ready(function () {
 
 
     function get(url,callback, resultForm) {
-        $.get(
-            url,
-            callback,
-            resultForm
-        );
+        $.get(url, callback, resultForm);
     } // get methode with callback
+
 
 
     get("/category/allCategories",
@@ -91,7 +110,7 @@ $(document).ready(function () {
     get('/checkCookie',function (data) {
             console.log(data);
             if(data == 'true'){ // if there isn't a cookie data = true and we display the modal
-                displayModal();
+               displayModal();
             }
     },'text');
 
@@ -120,7 +139,9 @@ $(document).ready(function () {
            .sidebar('toggle')
    });
 
-
+    $('.ui.accordion')
+        .accordion()
+    ;
 
     $('.overlay.overlay').visibility({
         type :'fixed',
@@ -243,18 +264,20 @@ $(document).ready(function () {
                 onApprove : function() {
                     console.log($('#nickname').val())
                     if($('#nickname').val() == ''||
-                        $('#password').val() ==''){
+                        $('#password').val() =='' ||
+                        $('#avatar').val() == ''){
                         message = $('#message');
+                        message.append('Please choose a nickname and an avatar also fill the password champ');
                         message.fadeIn(); // display the message
                         message.transition('shake')
                         return false; // 0 nickname
                     }
                     else {
-                        console.log($('#nickname').val());
                         $.post(
                             "/user/signIn",{
                                 nickname : upFirstLetter($('#nickname').val()),
-                                password: $('#password').val()
+                                password: $('#password').val(),
+                                avatar: $('#avatar').val()
                             },
                             function (data) {
                                 console.log(data)
@@ -314,130 +337,60 @@ $(document).ready(function () {
 
 
 
-
-
-
-
-
-   /* $('.ui.search').search({
-        apiSettings: {
-            url: '/autocomplete',
-            minCharacters : 1,
-            onResponse: function(results) {
-                var response = {
-                    results : []
-                };
-                $.each(results, function(index, item) {
-                    response.results.push({
-                        title       : item.name,
-                        description : item
-                        //url       : item.html_url
-                    });
-                });
-                return response;
-            },
-        },
-    });*/
-
-    // Define API endpoints once globally
-    /*$.fn.api.settings.api = {
-        'search' : '/autocomplete'
-    };
-    $('.ui.search')
-        .api({
-            debug: true,
-            action: 'search',
-            url: '/autocomplete',
-            searchFullText: false,
-            stateContext: '.ui.input'
-        })
-    ;*/
-
-    /*$('.ui.search')
-        .search({
-            type          : 'category',
-            minCharacters : 3,
-            apiSettings   : {
-                url        : '/autocomplete',
-                onResponse : function(githubResponse) {
-                    var
-                        response = {
-                            results : {}
-                        }
-                    ;
-                    console.log(githubResponse[0])
-                    if(!githubResponse || !githubResponse.items) {
-                        return;
+    $('#updatePassword').click(function () {
+        $("#failMessage").hide();
+        $("#successMessage").hide();
+        if($('#oldPass').val() =='' || $('#newPass').val() == ''){
+            $("#failMessage").html('Fill both champs');
+            $("#failMessage").fadeIn();
+        }else {
+            $.post(
+                '/user/updatePassword',
+                {
+                   old :$('#oldPass').val(),
+                    new: $('#newPass').val()
+                },function (data) {
+                    if(data =='success'){
+                        $("#successMessage").html('Password Updated with success');
+                        $("#successMessage").fadeIn();
+                    }else {
+                        $("#failMessage").html(data);
+                        $("#failMessage").fadeIn();
                     }
-                    // translate GitHub API response to work with search
-                    $.each(githubResponse.items, function(index, item) {
-                        var
-                            language   = item.language || 'Unknown',
-                            maxResults = 8
-                        ;
-                        if(index >= maxResults) {
-                            return false;
-                        }
-                        // create new language category
-                        if(response.results[language] === undefined) {
-                            response.results[language] = {
-                                name    : language,
-                                results : []
-                            };
-                        }
-                        // add result to category
-                        response.results[language].results.push({
-                            title       : item.name,
-                            description : item.description,
-                            url         : item.html_url
-                        });
-                    });
-                    return response;
-                }
-            }
-        });*/
+                },'text');
+        }
+    });
 
 
-    /* function connexionModal() {
-     $("ui.modal.inverted.segment.yellow#loginModal")
-     .modal({
-     inverted: true,
-     closable  : false,
+    $('#updateAvatar').click(function () {
+        $("#failMessage").hide();
+        $("#successMessage").hide();
+        if($('#newAvatar').val() == ''){
+            $("#failMessage").html('Choose an avatar');
+            $("#failMessage").fadeIn();
+        }else {
+            $.post(
+                '/user/updateAvatar',
+                {
+                    avatar: $('#newAvatar').val()
+                },function (data) {
+                    if(data == 'success'){
+                        $("#successMessage").html('Avatar successfully updated ');
+                        $("#successMessage").fadeIn();
+                        $('#avatarImg').attr('src',"/images/avatar/"+$('#newAvatar').val());
 
-     onApprove : function() {
-     if($('#loginNickname').val() == ''||
-     $('#loginPassword').val()){
-     message = $('#errorConnection');
-     message.fadeIn(); // display the message
-     message.transition('shake')
-     return false; // 0 nickname
-     }
-     else {
-     $.post(
-     "/newUser",{
-     nickname : $('#loginNickname').val(),
-     password: $('#loginPassword').val()
-     },
-     function (data) {
-     if(data ="success"){
+                    }else{
+                        $("#failMessage").html(data);
+                        $("#failMessage").fadeIn();
+                    }
+                },'text');
 
-     return true;
-     }
+        }
+    });
 
-     else{
-     // do somthing on the page
-     return false;
-     }
-     },'text'
-     );
-     }
 
-     }
-     })
-     .modal('show');
-     }
-*/
 
-     $('.ui.search').search({ apiSettings: { url: '/autocomplete' } });
+
+ 
 
 });

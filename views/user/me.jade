@@ -4,3 +4,43 @@
 extends ../layout
 
 block content
+    div.ui.raised.very.padded.segment.container
+        h1.header #{nickname}
+        div.ui.message.inverted.green#failMessage.hidden
+        div.ui.message.inverted.olive#successMessage.hidden
+        div.ui.grid
+            div.eight.wide.column
+                div.ui.divider.hidden
+                div.ui.divider.hidden
+                div.ui.divider.hidden
+                div.ui.accordion
+                    div.title change my password
+                        i.dropdown.icon
+                    div.content
+                        label old password
+                        div.ui.fluid.input
+                            input(type='password' placeholder='password')#oldPass
+                        label new password
+                        div.ui.fluid.input
+                            input(type='password' placeholder='password')#newPass
+                        div.ui.divider.hidden
+                        button.ui.button.olive.right.floated#updatePassword update my password
+
+                    div.title change avatar
+                        i.dropdown.icon
+                    div.content
+                        label Avatar
+                        div.ui.fluid.selection.dropdown
+                            input(type='hidden' name='avatar')#newAvatar
+                            i.dropdown.icon
+                            div.default.text Select your avatar
+                            div.menu
+                                -each image in avatars
+                                    div.item(data-value=image)
+                                        -source = '/images/avatar/'+image
+                                        img.ui.tiny.avatar.image(src=source)
+                        div.ui.divider.hidden
+                        button.ui.button.olive.right.floated#updateAvatar update my avatar
+            div.six.wide.column
+                -var source = '/images/avatar/' + avatar
+                img.ui.fluid.image(src=source)#avatarImg

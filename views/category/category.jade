@@ -14,10 +14,15 @@ block content
                             -var url = "/topic/" + topic.name
                             a.header(href=url) #{topic.name}
                             div.meta.right.floated
-                                -var author = "/user/"+topic.creator
-                                a.author(href=author) by #{topic.creator}
+                                a(href=url).ui.label(class=topic.color).image.author
+                                    -var source='/images/avatar/'+topic.avatar
+                                    img(src= source)
+                                    div.detail by #{topic.creator}
+
+
+                            div.ui.divider.hidden
                             div.meta.left.floated
-                                span.date created the #{topic.creationdate}
+                                span.date created the #{topic.creationdate.toLocaleString('fr-FR')}
                         div.extra.content
                             i.icon.mail.large
                             div #{topic.nbmessage} response(s)

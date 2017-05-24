@@ -16,8 +16,9 @@
     "morgan": "~1.8.1",
     "password-hash": "^1.2.2",
     "pg": "^6.2.2",
-    "socket.io": "2.0.1",
-    "serve-favicon": "~2.4.2"
+    "rand-token": "^0.3.0",
+    "serve-favicon": "~2.4.2",
+    "socket.io": "2.0.1"
   },
   "engines": {
     "node": "6.10.3"

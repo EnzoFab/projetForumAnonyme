@@ -11,9 +11,14 @@ block content
                             a.header(href=url) #{topic.name}
                             div.meta.right.floated
                                 -var author = "/user/"+topic.creator
-                                a.author(href=author) by #{topic.creator}
+                                div.meta.right.floated
+                                    a(href=url).ui.label(class=topic.color).image.author
+                                        -var source='/images/avatar/'+topic.avatar
+                                        img(src= source)
+                                        div.detail by #{topic.creator}
+                            div.ui.divider.hidden
                             div.meta.left.floated
-                                span.date created the #{topic.creationdate}
+                                span.date created the #{topic.creationdate.toLocaleString('fr-FR')}
                         div.content
                             -url = '/category/' + topic.category
                             a(href=url).ui.red.horizontal.label Category: #{topic.category}

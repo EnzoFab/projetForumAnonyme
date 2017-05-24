@@ -3,6 +3,7 @@ extends ../layout
 block content
     div.ui.hidden.divider
     div.ui.container.segment.very.padded.inverted(class=topicData.color)
+        h1.header #{topicData.name}
         div.ui.two.column.centered.grid
             -each message in allMessages
                 -var url = '/user/'+message.sender
@@ -13,10 +14,13 @@ block content
                             div.ui.card.yellow
                                 div.content
                                     div.meta.right.floated
-                                        a(href=url).author #{message.sender}
+                                        a(href=url).ui.label.blue.image.author
+                                            -var source='/images/avatar/'+message.avatar
+                                            img(src= source)
+                                            div.detail #{message.sender}
                                     div.description #{message.textmessage}
                                     div.meta.left.floated
-                                        span.date #{message.datesending}
+                                        span.date #{message.datesending.toLocaleString('fr-FR')}
 
                 else
                     div.row
@@ -33,6 +37,7 @@ block content
                 div.row
 
     div.ui.horizontal.divider.hidden
+    div.ui.horizontal.divider.hidden
     div.ui.horizontal.divider
     div.ui.borderless.bottom.fixed.menu
         div.ui.text.container
@@ -42,4 +47,4 @@ block content
             div.item.left
                 div.ui.transparent.action.input.massive
                     input(type="text" placeholder="tap your message ")
-                    div.ui.button.grey#sendMessage send
+                    div.ui.button.green#sendMessage send
