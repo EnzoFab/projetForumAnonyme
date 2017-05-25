@@ -57,8 +57,8 @@
       <file leaf-file-name="script.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/javascripts/script.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="446">
-              <caret line="226" column="75" lean-forward="false" selection-start-line="226" selection-start-column="75" selection-end-line="226" selection-end-column="75" />
+            <state relative-caret-position="530">
+              <caret line="230" column="52" lean-forward="true" selection-start-line="230" selection-start-column="52" selection-end-line="230" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -513,14 +513,7 @@
       <workItem from="1495531881231" duration="6031000" />
       <workItem from="1495552733151" duration="27163000" />
       <workItem from="1495628733793" duration="21647000" />
-      <workItem from="1495721610612" duration="25414000" />
-    </task>
-    <task id="LOCAL-00001" summary="mise en places des routes">
-      <created>1494962092460</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1494962092460</updated>
+      <workItem from="1495721610612" duration="26848000" />
     </task>
     <task id="LOCAL-00002" summary="mise en places des routes">
       <created>1494990991377</created>
@@ -851,11 +844,25 @@
       <option name="project" value="LOCAL" />
       <updated>1495752321208</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Test Deployement">
+      <created>1495752494175</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1495752494175</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Test Deployement">
+      <created>1495752641822</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1495752641868</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="330047000" />
+    <option name="totallyTimeSpent" value="331481000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1277,8 +1284,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/script.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="226" column="75" lean-forward="false" selection-start-line="226" selection-start-column="75" selection-end-line="226" selection-end-column="75" />
+        <state relative-caret-position="530">
+          <caret line="230" column="52" lean-forward="true" selection-start-line="230" selection-start-column="52" selection-end-line="230" selection-end-column="52" />
           <folding />
         </state>
       </provider>

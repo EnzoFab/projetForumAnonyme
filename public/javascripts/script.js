@@ -232,7 +232,7 @@ $(document).ready(function () {
                         return false;
                     }
                     else {
-                        topic = $('input[name="topicName"]').val().trim().replace('/', '_').replace(' ', '_').replace('&','_');
+                        topic = $('input[name="topicName"]').val().trim().replace(/\//g, '_').replace(/ /, '_').replace(/&/g,'_');
                         $.post(
                             "/topic/create",
                             {
