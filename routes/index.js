@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-const pool = require('./query'); // make queries
-var image = require('./filesRead');
+const pool = require('../conf/query'); // make queries
+var image = require('../conf/filesRead');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

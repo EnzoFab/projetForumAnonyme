@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var pseudo = require('./filesRead');
-const pool = require('./query'); // make queries
-var image = require('./filesRead');
+var pseudo = require('../conf/filesRead');
+const pool = require('../conf/query'); // make queries
+var image = require('../conf/filesRead');
 
 router.get('/allCategories', function (req, res , next) {
     pool.pgQuery('SELECT * FROM public.category','', function (err, resultat) {

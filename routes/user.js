@@ -3,11 +3,11 @@
  */
 var express = require('express');
 var router = express.Router();
-var pseudo = require('./filesRead');
-const pool = require('./query'); // make queries
+var pseudo = require('../conf/filesRead');
+const pool = require('../conf/query'); // make queries
 const passwordHash = require('password-hash');
 var date = require('date-and-time');
-var image = require('./filesRead');
+var image = require('../conf/filesRead');
 var randtoken = require('rand-token').generator({
     chars: 'a-z'
 });; // create a random token in lowerCase

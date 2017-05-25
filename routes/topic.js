@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var image = require('./filesRead');
-const pool = require('./query'); // make queries
+var image = require('../conf/filesRead');
+const pool = require('../conf/query'); // make queries
 
 console.log("IMAGE "+ image.AVATAR_LIST);
 
