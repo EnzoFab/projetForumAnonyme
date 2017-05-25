@@ -224,7 +224,7 @@ $(document).ready(function () {
                             message.fadeIn(); // display the message
                             message.transition('shake');
                             return false;
-                    }else if($('input[name="topicName"]').val().length > 20){
+                    }else if($('input[name="topicName"]').val().length > 40){
                         message = $('#topicMessage');
                         message.html("Choose a shorter title ");
                         message.fadeIn(); // display the message
