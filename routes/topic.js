@@ -94,7 +94,7 @@ router.get('/:n',function (req, res, next) {
                     }
                     else{
                         var dataT = r.rows[0]; // all data about the topic
-                        pool.pgQuery('SELECT * FROM public.message M, public.user U WHERE M.topic=$1 and M.sender = U.name',
+                        pool.pgQuery('SELECT * FROM public.message M, public.user U WHERE M.topic=$1 and M.sender = U.name ORDER by idmessage ASC',
                             [req.params.n],function (error,rslt) {
                                 if(error){
                                     message = "An error has occured ";

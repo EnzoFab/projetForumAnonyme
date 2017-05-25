@@ -33,20 +33,21 @@ $(document).ready(function () {
         // if true it's my message otherwise the message from another user
         if(bool){ // it's me
             $('.grid').append('<div class="row"><div class="column"></div>' +
-                '<div class="column">  <div class="ui card yellow"><div class="content">' +
-                '<div class="meta left floated deleteMessage"><a href="#"><i class="close icon black"></i>delete</a></div>' +
+                '<div class="column">  <div class="ui segment card inverted red" id="'+ message.id+'" >' +
+                '<div class="content">' +
+                '<div class="meta left floated deleteMessage"><a href="#"><i class="close icon black"></i><span>delete</span></a></div>' +
                 '<div class="ui divider hidden"></div><div class="meta right floated">' +
-                '<a class="author ui label blue image author" href="/user/' +message.nickname +'"><img src="/images/avatar/'+ message.avatar+
+                '<a class="author ui label red image author" href="/user/' +message.nickname +'"><img src="/images/avatar/'+ message.avatar+
                 '"/><div class="detail">'
                 + message.nickname+
                 '</div> </a></div><div class="description">'+message.text + '</div> <div class="meta left floated">' +
                 '<span class="date">' +message.date + '</span>'+
-                '</div> ::after' +
-                '</div>::after</div>  </div> </div>');
+                '</div> ' +
+                '</div></div>  </div> </div>');
         }else{
             $('.grid').append('<div class="row">' +
-                '<div class="column">  <div class="ui card yellow"><div class="content"><div class="meta right floated">' +
-                '<a class="author ui label blue image author" href="/user/' +message.nickname +'"><img src="/images/avatar/'+ message.avatar+
+                '<div class="column">  <div class="ui card segment inverted red"><div class="content"><div class="meta right floated">' +
+                '<a class="author ui label red image author" href="/user/' +message.nickname +'"><img src="/images/avatar/'+ message.avatar+
                 '"/><div class="detail">'
                 + message.nickname+
                 '</div> </a></div><div class="description">'+message.text + '</div> <div class="meta left floated">' +
@@ -69,6 +70,7 @@ $(document).ready(function () {
                 },
                 function (data) {
                     message = {
+                        id: data.id,
                         nickname :data.name,
                         text: data.text,
                         avatar : data.avatar,
@@ -88,12 +90,25 @@ $(document).ready(function () {
 
 
 
-    $('.deleteMessage').each(function () { // on each element of the class
-        $(this).click(function (e) {
-            e.preventDefault();
-            console.log('eeeee');
-        });
-    });
+     setInterval(function () { // call the function every 500ms
+         $('.deleteMessage').each(function () { // on each element of the class
+             $(this).on('click', function (e) {
+                 e.preventDefault();
+                 $.post(
+                     '/user/deleteMessage',
+                     {
+                         id: $(this).parent().parent().attr('id')
+                     },function (data) {
+
+                         if(data == 'success'){
+                            window.location.reload();
+                         }
+                     },'text');
+
+                 return false;
+             });
+         });
+     },500);
 
 
     $('#searchButton').click(function (e) {
@@ -101,7 +116,7 @@ $(document).ready(function () {
 
         if(  $('#searchInput').val() !=''){
             var searchUrl ='/search/'+$('#select').val() + "/"+$('#searchInput').val();
-            window.location = searchUrl;
+            window.location
         }
     });
 

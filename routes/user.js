@@ -211,11 +211,44 @@ router.post('/sendMessage',function (req,res,next) {
                     if(err)
                         res.send('error');
                     else {
-                        res.send({name: name, avatar:avatar, text:req.body.text });
+                        pool.pgQuery('SELECT idmessage FROM public.message WHERE sender = $1 ORDER BY idMessage DESC LIMIT 1',
+                        [name],function (e,r) { // get the id of the last message send by the user
+                                if(e)
+                                    res.send('error');
+                                else{
+                                    res.send({name: name, avatar:avatar, text:req.body.text, id :r.rows[0].idmessage });
+                                }
+                            }) ;
                     }
                 });
             }
         });
+    }
+});
+
+
+
+router.post('/deleteMessage',function (req, res, next) {
+    if(req.cookies.UserCookie === undefined){
+        res.send('not connected');
+    }else {
+        pool.pgQuery('SELECT name, avatar, COUNT(*) as nb FROM public.user WHERE token = $1 GROUP BY name, avatar',
+            [req.cookies.UserCookie], function (e,r) {
+                if(e)
+                    res.send(e);
+                else if(r.rows[0].nb == 0){
+                    res.send('not connected');
+                }else{
+                    pool.pgQuery('DELETE FROM public.message WHERE idmessage = $1', [req.body.id],
+                    function (err,resut) {
+                        if(e)
+                            res.send(err);
+                        else
+                            res.send('success');
+                    })
+                }
+
+            });
     }
 });
 

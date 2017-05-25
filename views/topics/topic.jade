@@ -11,7 +11,7 @@ block content
                     div.row
                         div.column
                         div.column
-                            div.ui.card.yellow
+                            div.ui.segment.inverted.card.red(id=message.idmessage)
                                 div.content
                                     div.meta.left.floated.deleteMessage
                                         a(href='#')
@@ -19,7 +19,7 @@ block content
                                             span delete
                                     div.ui.divider.hidden
                                     div.meta.right.floated
-                                        a(href=url).ui.label.blue.image.author
+                                        a(href=url).ui.label.red.image.author
                                             -var source='/images/avatar/'+message.avatar
                                             img(src= source)
                                             div.detail #{message.sender}
