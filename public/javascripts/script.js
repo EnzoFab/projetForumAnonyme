@@ -8,6 +8,7 @@ $(document).ready(function () {
         topicName = window.location.href.split("/topic")[1]; // get the topicName
 
        var socket =io(topicName,{'force new connection': true}); // room
+       console.log(socket);
        socket.on('connected',function () {
            console.log('connected to the room' +topicName );
        });
@@ -227,6 +228,7 @@ $(document).ready(function () {
                         message.html("Choose a shorter title ");
                         message.fadeIn(); // display the message
                         message.transition('shake');
+                        return false;
                     }
                     else {
                         $.post(
