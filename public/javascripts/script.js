@@ -237,7 +237,7 @@ $(document).ready(function () {
                             "/topic/create",
                             {
                                 color : $('input[name="color"]').val(),
-                                topicName :  $('input[name="topicName"]').val().trim().replace('/', '-').replace(' ', '-'),
+                                topicName :  $('input[name="topicName"]').val().trim().replace('/', '_').replace(' ', '_'),
                                     // trim() in order to remove beginning et trailling space
                                 category: $('#category').val()
                             },
