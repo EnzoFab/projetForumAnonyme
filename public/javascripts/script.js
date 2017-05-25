@@ -232,12 +232,12 @@ $(document).ready(function () {
                         return false;
                     }
                     else {
-
+                        topic = $('input[name="topicName"]').val().trim().replace('/', '_').replace(' ', '_').replace('&','_');
                         $.post(
                             "/topic/create",
                             {
                                 color : $('input[name="color"]').val(),
-                                topicName :  $('input[name="topicName"]').val().trim().replace('/', '_').replace(' ', '_'),
+                                topicName :  topic,
                                     // trim() in order to remove beginning et trailling space
                                 category: $('#category').val()
                             },
@@ -248,7 +248,7 @@ $(document).ready(function () {
                                         $("#succesTopic").html("Topic created");
                                         $("#succesTopic").fadeIn();
                                         setTimeout(function () {
-                                            window.location = "/topic/"+$('input[name="topicName"]').val();
+                                            window.location = "/topic/"+topic;
                                         },1500);
                                     });
 
