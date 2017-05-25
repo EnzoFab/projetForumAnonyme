@@ -12,6 +12,7 @@ $(document).ready(function () {
        socket.on('connected',function () {
            console.log('connected to the room' +topicName );
        });
+
         socket.on('new_user',function (message) {
             console.log("nouveau client");
         });
@@ -51,8 +52,8 @@ $(document).ready(function () {
                 + message.nickname+
                 '</div> </a></div><div class="description">'+message.text + '</div> <div class="meta left floated">' +
                 '<span class="date">' +message.date + '</span>'+
-                '</div> ::after' +
-                '</div>::after</div>  </div> <div class="column"></div></div>');
+                '</div>' +
+                '</div></div>  </div> <div class="column"></div></div>');
         }
 
     }
@@ -231,11 +232,12 @@ $(document).ready(function () {
                         return false;
                     }
                     else {
+
                         $.post(
                             "/topic/create",
                             {
                                 color : $('input[name="color"]').val(),
-                                topicName :  $('input[name="topicName"]').val().trim().replace('/', '-'),
+                                topicName :  $('input[name="topicName"]').val().trim().replace('/', '-').replace(' ', '-'),
                                     // trim() in order to remove beginning et trailling space
                                 category: $('#category').val()
                             },
