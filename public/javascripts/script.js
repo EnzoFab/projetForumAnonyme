@@ -224,7 +224,13 @@ $(document).ready(function () {
                             message.fadeIn(); // display the message
                             message.transition('shake');
                             return false;
-                    }else {
+                    }else if($('input[name="topicName"]').val().length > 15){
+                        message = $('#topicMessage');
+                        message.html("Choose a shorter title ");
+                        message.fadeIn(); // display the message
+                        message.transition('shake');
+                    }
+                    else {
                         $.post(
                             "/topic/create",
                             {
