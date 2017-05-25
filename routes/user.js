@@ -206,8 +206,8 @@ router.post('/sendMessage',function (req,res,next) {
                 name = r.rows[0].name;
                 avatar = r.rows[0].avatar;
                 // insert the new message and send back name and avatar
-                pool.pgQuery('INSERT INTO public.message(textmessage, datesending, topic, sender, file)VALUES ($1, $2, $3, $4, $5)',
-                [req.body.text, new Date(),req.body.topic, name,null],function (err, reslt) {
+                pool.pgQuery('INSERT INTO public.message(textmessage, datesending, topic, sender, file)VALUES ($1, $2, $3, $4)',
+                [req.body.text, new Date(),req.body.topic, name],function (err, reslt) {
                     if(err)
                         res.send('error');
                     else {
