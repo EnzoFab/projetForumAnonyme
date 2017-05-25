@@ -77,7 +77,7 @@ $(document).ready(function () {
                         date : new Date().toLocaleDateString('fr-FR')
                     };
                     appendNewMessage(message,true);
-                    $(this).parent().find('input[type="text"]').val('')
+                    console.log($(this).parent().find('input[type="text"]').val());
                     socket.emit('new_message', message);
                 },'json');
         }

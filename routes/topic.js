@@ -109,7 +109,6 @@ router.get('/:n',function (req, res, next) {
                                         socket.broadcast.emit('new_user','An user comes in');
 
 
-                                        console.log('Main Sock'+socket);
 
                                         //socket.broadcast.emit('new_user','An user comes in');
                                         socket.on('disconnect', function () {
