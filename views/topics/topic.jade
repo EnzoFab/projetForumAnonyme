@@ -3,7 +3,7 @@ extends ../layout
 block content
     div.ui.hidden.divider
     div.ui.container.segment.very.padded.inverted(class=topicData.color)
-        h1.header #{topicData.name}
+        h1.header#topicName #{topicData.name}
         div.ui.two.column.centered.grid
             -each message in allMessages
                 -var url = '/user/'+message.sender
@@ -13,6 +13,11 @@ block content
                         div.column
                             div.ui.card.yellow
                                 div.content
+                                    div.meta.left.floated.deleteMessage
+                                        a(href='#')
+                                            i.icon.close.icon.black
+                                            span delete
+                                    div.ui.divider.hidden
                                     div.meta.right.floated
                                         a(href=url).ui.label.blue.image.author
                                             -var source='/images/avatar/'+message.avatar

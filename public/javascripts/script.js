@@ -33,7 +33,9 @@ $(document).ready(function () {
         // if true it's my message otherwise the message from another user
         if(bool){ // it's me
             $('.grid').append('<div class="row"><div class="column"></div>' +
-                '<div class="column">  <div class="ui card yellow"><div class="content"><div class="meta right floated">' +
+                '<div class="column">  <div class="ui card yellow"><div class="content">' +
+                '<div class="meta left floated deleteMessage"><a href="#"><i class="close icon black"></i>delete</a></div>' +
+                '<div class="ui divider hidden"></div><div class="meta right floated">' +
                 '<a class="author ui label blue image author" href="/user/' +message.nickname +'"><img src="/images/avatar/'+ message.avatar+
                 '"/><div class="detail">'
                 + message.nickname+
@@ -57,25 +59,51 @@ $(document).ready(function () {
 
     $('#sendMessage').click(function (e) {
         e.preventDefault();
-        console.log($(this).parent().find('input[type="text"]').val() ) ;
-        console.log(new Date().toLocaleDateString('en-GB'));
-        message = {
-            nickname: 'Adibou',
-            text: $(this).parent().find('input[type="text"]').val(),
-            date: new Date().toLocaleDateString('en-GB')
+
+        if(!$(this).parent().find('input[type="text"]').val() ==''){
+            $.post(
+                '/user/sendMessage',
+                {
+                    text:$(this).parent().find('input[type="text"]').val(),
+                    topic: $('#topicName').text()
+                },
+                function (data) {
+                    message = {
+                        nickname :data.name,
+                        text: data.text,
+                        avatar : data.avatar,
+                        date : new Date().toLocaleDateString('fr-FR')
+                    };
+                    appendNewMessage(message,true);
+                    $(this).parent().find('input[type="text"]').val('')
+                    socket.emit('new_message', message);
+                },'json');
         }
-        topicName = window.location.href.split("/topic")[1]; // get the topicName
-        appendNewMessage(message,true);
-        // insertBD
-        socket.emit('new_message', message);
+
+
+
+
     });
 
 
 
 
+    $('.deleteMessage').each(function () { // on each element of the class
+        $(this).click(function (e) {
+            e.preventDefault();
+            console.log('eeeee');
+        });
+    });
 
 
+    $('#searchButton').click(function (e) {
+        e.preventDefault();
 
+        if(  $('#searchInput').val() !=''){
+            var searchUrl ='/search/'+$('#select').val() + "/"+$('#searchInput').val();
+            window.location = searchUrl;
+        }
+    });
 
     $(".help.icon#information").popup({
         on:'click'

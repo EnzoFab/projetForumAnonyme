@@ -4,3 +4,8 @@
 extends ../layout
 
 block content
+    div.ui.segment.very.padded.container
+        h1.header #{userData.name}
+        div.ui.divider.hidden
+        -var source = '/images/avatar/' + userData.avatar
+        img.ui.image(src=source)

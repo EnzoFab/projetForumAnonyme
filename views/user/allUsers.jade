@@ -11,4 +11,7 @@ block content
             div.column
                 div.ui.segment
                     -var url ="/user/"+user.name
-                    a.header(href=url) #{user.name}
+                    a(href=url).ui.header.label.blue.image.author
+                        -var source='/images/avatar/'+user.avatar
+                        img(src= source)
+                        div.detail #{user.name}

@@ -1,0 +1,22 @@
+//
+   Created by ENZO on 25/05/2017.
+
+extends ../layout
+
+block content
+    div.ui.raised.very.padded.segment.container
+        h1.header All Users
+            div.ui.divider
+
+            if result.length == 0
+               span No result
+            else
+                div.ui.grid
+                -each user in result
+                    div.column
+                        div.ui.segment
+                            -var url ="/user/"+user.name
+                            a(href=url).ui.header.label.blue.image.author
+                                -var source='/images/avatar/'+user.avatar
+                                img(src= source)
+                                div.detail #{user.name}

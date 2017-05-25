@@ -16,9 +16,13 @@ html
         div.item.right
           div.ui.button.green#buttonCreate Create new topic
         div.item
-          div.ui.icon.input
-            input(type='text' placeholder='search')
-            i.search.icon
+          div.ui.action.input.small
+            input(type='text' placeholder='search')#searchInput
+            select.ui.compact.selection.dropdown#select
+              option(value='user') User
+              option(value='topic') Topic
+            div.ui.button.green#searchButton Search
+
     div.ui.divider.hidden
     div.ui.button#showSideBar.overlay.olive
         i.icon.sidebar.grey.big
