@@ -103,7 +103,7 @@ router.get('/:n',function (req, res, next) {
 
                                     topicRoom = '/'+req.params.n;
 
-                                    res.socket.of(topicRoom).on('connection',function (socket) {
+                                    res.socket.of(topicRoom).once('connection',function (socket) {
                                         //in order to fix the issue of multi connect for a single socket
 
                                         socket.broadcast.emit('new_user','An user comes in');

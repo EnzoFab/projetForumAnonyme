@@ -7,7 +7,7 @@ $(document).ready(function () {
 
         topicName = window.location.href.split("/topic")[1]; // get the topicName
 
-       var socket =io.connect(topicName); // room
+       var socket =io.connect(topicName,{'force new connection': true}); // room
        socket.on('connected',function () {
            console.log('connected to the room' +topicName );
        });
@@ -21,8 +21,6 @@ $(document).ready(function () {
             appendNewMessage(data,false);
         });
 
-        console.log(topicName);
-        console.log(window.location.href);
 
 
 
