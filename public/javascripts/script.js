@@ -77,7 +77,7 @@ $(document).ready(function () {
                         date : new Date().toLocaleDateString('fr-FR')
                     };
                     appendNewMessage(message,true);
-                    console.log($('#sendMessage').parent().find('input[type="text"]').val());
+                    $('#sendMessage').parent().find('input[type="text"]').val('');
                     socket.emit('new_message', message);
                 },'json');
         }
@@ -232,7 +232,7 @@ $(document).ready(function () {
                         return false;
                     }
                     else {
-                        topic = $('input[name="topicName"]').val().trim().replace(/\//g, '_').replace(/ /, '_').replace(/&/g,'_');
+                        topic = $('input[name="topicName"]').val().trim().replace(/\//g, '_').replace(/ /g, '_').replace(/&/g,'_');
                         $.post(
                             "/topic/create",
                             {
