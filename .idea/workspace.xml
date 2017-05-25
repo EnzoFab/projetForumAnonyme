@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a2b9b9ee-9681-45f0-b137-76743f9b54b6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/topic.js" afterPath="$PROJECT_DIR$/routes/topic.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/topics/topic.jade" afterPath="$PROJECT_DIR$/views/topics/topic.jade" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,7 +21,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="topic.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="topic.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/topic.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="198">
@@ -74,11 +74,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="topic.jade" pinned="false" current-in-tab="false">
+      <file leaf-file-name="topic.jade" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/topics/topic.jade">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="16" column="51" lean-forward="true" selection-start-line="16" selection-start-column="51" selection-end-line="16" selection-end-column="51" />
+            <state relative-caret-position="420">
+              <caret line="32" column="60" lean-forward="false" selection-start-line="32" selection-start-column="60" selection-end-line="32" selection-end-column="60" />
               <folding />
             </state>
           </provider>
@@ -173,12 +173,12 @@
         <option value="$PROJECT_DIR$/views/topics/allTopics.jade" />
         <option value="$PROJECT_DIR$/views/category/category.jade" />
         <option value="$PROJECT_DIR$/views/user/user.jade" />
-        <option value="$PROJECT_DIR$/views/topics/topic.jade" />
         <option value="$PROJECT_DIR$/public/javascripts/script.js" />
         <option value="$PROJECT_DIR$/conf/confDB.js" />
         <option value="$PROJECT_DIR$/conf/query.js" />
         <option value="$PROJECT_DIR$/routes/user.js" />
         <option value="$PROJECT_DIR$/routes/topic.js" />
+        <option value="$PROJECT_DIR$/views/topics/topic.jade" />
       </list>
     </option>
   </component>
@@ -523,7 +523,7 @@
       <workItem from="1495531881231" duration="6031000" />
       <workItem from="1495552733151" duration="27163000" />
       <workItem from="1495628733793" duration="21647000" />
-      <workItem from="1495721610612" duration="22770000" />
+      <workItem from="1495721610612" duration="22845000" />
     </task>
     <task id="LOCAL-00001" summary="mise en places des routes">
       <created>1494962092460</created>
@@ -791,11 +791,18 @@
       <option name="project" value="LOCAL" />
       <updated>1495749328793</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Test Deployement">
+      <created>1495749847822</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1495749847822</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="327403000" />
+    <option name="totallyTimeSpent" value="327478000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1171,14 +1178,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/topics/topic.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="16" column="51" lean-forward="true" selection-start-line="16" selection-start-column="51" selection-end-line="16" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/conf/confDB.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
@@ -1218,6 +1217,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="105" column="63" lean-forward="false" selection-start-line="105" selection-start-column="63" selection-end-line="105" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/topics/topic.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="32" column="60" lean-forward="false" selection-start-line="32" selection-start-column="60" selection-end-line="32" selection-end-column="60" />
           <folding />
         </state>
       </provider>

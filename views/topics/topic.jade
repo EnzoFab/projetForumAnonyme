@@ -30,11 +30,14 @@ block content
                 else
                     div.row
                         div.column
-                            div.ui.card.yellow
+                            div.ui.segment.inverted.card.red
                                 div.content
                                     div.meta.right.floated
 
-                                        a(href=url).author #{message.sender}
+                                        a(href=url).ui.label.red.image.author
+                                            -var source='/images/avatar/'+message.avatar
+                                            img(src= source)
+                                            div.detail #{message.sender}
                                     div.description #{message.textmessage}
                                     div.meta.left.floated
                                         span.date #{message.datesending.toLocaleString('en-GB')}
