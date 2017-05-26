@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var image = require('../conf/filesRead');
+var fs = require('../conf/filesRead');
 const pool = require('../conf/query'); // make queries
+var wordfilter = require('wordfilter');
 
-console.log("IMAGE "+ image.AVATAR_LIST);
+
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -13,11 +14,11 @@ router.get('/', function(req, res, next) {
         function (err,resultat) {
             if(err){
                 message = "An error has occured "+err ;
-                res.render('error', {title:'Free2talk',errorMessage: message, avatars :image.AVATAR_LIST } );
+                res.render('error', {title:'Free2talk',errorMessage: message, avatars :fs.AVATAR_LIST } );
 
             } else{
                 res.render('topics/allTopics',
-                    {title:'Free2talk', allTopics : resultat.rows, size:resultat.rows.length, avatars :image.AVATAR_LIST });
+                    {title:'Free2talk', allTopics : resultat.rows, size:resultat.rows.length, avatars :fs.AVATAR_LIST });
                 // send the length of the array resultat.rows in order to organize our layout
             }
         });
@@ -54,14 +55,22 @@ router.post('/create',function (req, res, next) {
                                 else if(result.rows[0].nb == 1){
                                     res.send("Change your topic name, this one already exists");
                                 }else {
-                                    // last one
-                                    pool.pgQuery('INSERT INTO topic VALUES($1,$2,$3,$4,$5)',
-                                        [req.body.topicName, req.body.color, name,
-                                            new Date().toLocaleDateString("fr-FR"), req.body.category],
-                                        function (err, r3) {
-                                            if (err) res.send(err);
-                                            else res.send('success');
-                                        });
+
+                                    wordfilter.addWords(fs.BANNED_NAME);
+                                    wordfilter.addWords(fs.BANNED_WORD);
+                                    if(wordfilter.blacklisted(req.body.topicName.toLowerCase())){
+                                        res.send("Your title contains inappropriate words");
+                                    }else{
+                                        // last one
+                                        pool.pgQuery('INSERT INTO topic VALUES($1,$2,$3,$4,$5)',
+                                            [req.body.topicName, req.body.color, name,
+                                                new Date().toLocaleDateString("fr-FR"), req.body.category],
+                                            function (err, r3) {
+                                                if (err) res.send(err);
+                                                else res.send('success');
+                                            });
+                                    }
+
                                 }
                             });
                     }
@@ -85,12 +94,12 @@ router.get('/:n',function (req, res, next) {
             if(err)res.send(err);
             else if(resultat.rows[0].nb ==0 ){
                 message = "The topic "+ req.params.n+ " doesn't exist or has been removed";
-                res.render('error', {errorMessage: message, avatars :image.AVATAR_LIST } );
+                res.render('error', {errorMessage: message, avatars :fs.AVATAR_LIST } );
             }else {
                 pool.pgQuery("SELECT * FROM public.topic WHERE name=$1",[req.params.n],function (e, r) {
                     if(e){
                         message = "An error has occured ";
-                        res.render('error', {title:'Free2talk',errorMessage: message, avatars :image.AVATAR_LIST } );
+                        res.render('error', {title:'Free2talk',errorMessage: message, avatars :fs.AVATAR_LIST } );
                     }
                     else{
                         var dataT = r.rows[0]; // all data about the topic
@@ -98,7 +107,7 @@ router.get('/:n',function (req, res, next) {
                             [req.params.n],function (error,rslt) {
                                 if(error){
                                     message = "An error has occured ";
-                                    res.render('error', {title:'Free2talk',errorMessage: message, avatars :image.AVATAR_LIST } );
+                                    res.render('error', {title:'Free2talk',errorMessage: message, avatars :fs.AVATAR_LIST } );
                                 }else{
 
                                     topicRoom = '/'+req.params.n;
@@ -128,15 +137,15 @@ router.get('/:n',function (req, res, next) {
                                     [req.cookies.UserCookie], function (error, resultat) {
                                         if(error){
                                             message = "An error has occured ";
-                                            res.render('error', {title:'Free2talk',errorMessage: message, avatars :image.AVATAR_LIST } );
+                                            res.render('error', {title:'Free2talk',errorMessage: message, avatars :fs.AVATAR_LIST } );
                                         }else if(resultat.rows[0].nb == 0){ // doesn't exist
                                             message = "Your are not connected ";
-                                            res.render('error', {title:'Free2talk',errorMessage: message, avatars :image.AVATAR_LIST } );
+                                            res.render('error', {title:'Free2talk',errorMessage: message, avatars :fs.AVATAR_LIST } );
                                         }else {
                                             res.render('topics/topic',
                                                 {title:'Free2talk', topicData:dataT,
                                                     allMessages : rslt.rows,
-                                                    currentUser: resultat.rows[0].name,avatars :image.AVATAR_LIST  }); // display the page
+                                                    currentUser: resultat.rows[0].name,avatars :fs.AVATAR_LIST  }); // display the page
                                         }
 
                                     });
