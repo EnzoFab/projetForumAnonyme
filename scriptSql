@@ -1,0 +1,135 @@
+
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'SQL_ASCII';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET search_path = public, pg_catalog;
+
+SET default_with_oids = false;
+
+
+
+CREATE TABLE category (
+    namecat character varying(20) NOT NULL
+);
+
+
+
+
+CREATE SEQUENCE message_idmessage_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+
+CREATE TABLE message (
+    idmessage integer DEFAULT nextval('message_idmessage_seq'::regclass) NOT NULL,
+    textmessage text,
+    datesending date,
+    topic character varying(60),
+    sender character varying(60)
+);
+
+
+
+CREATE TABLE nicknames (
+    nickname character varying(60) NOT NULL
+);
+
+
+
+CREATE TABLE topic (
+    name character varying(40) NOT NULL,
+    color character varying(20) NOT NULL,
+    creator character varying(60) NOT NULL,
+    creationdate date,
+    category character varying(20) NOT NULL
+);
+
+
+
+
+CREATE TABLE "user" (
+    name character varying(60) NOT NULL,
+    "userIp" character varying(60) NOT NULL,
+    password character varying(60) NOT NULL,
+    creationdate date NOT NULL,
+    avatar character varying(50) NOT NULL,
+    token character varying(120) NOT NULL
+);
+
+
+
+
+
+
+SELECT pg_catalog.setval('message_idmessage_seq', 450, true);
+
+
+
+
+
+
+ALTER TABLE ONLY category
+    ADD CONSTRAINT catpk PRIMARY KEY (namecat);
+
+
+
+ALTER TABLE ONLY message
+    ADD CONSTRAINT message_pkey PRIMARY KEY (idmessage);
+
+
+
+
+ALTER TABLE ONLY nicknames
+    ADD CONSTRAINT nicknames_pkey PRIMARY KEY (nickname);
+
+
+
+
+ALTER TABLE ONLY topic
+    ADD CONSTRAINT sujet_pk PRIMARY KEY (name);
+
+
+
+ALTER TABLE ONLY "user"
+    ADD CONSTRAINT upk PRIMARY KEY (name);
+
+
+
+
+ALTER TABLE ONLY topic
+    ADD CONSTRAINT catfk FOREIGN KEY (category) REFERENCES category(namecat);
+
+
+
+
+ALTER TABLE ONLY message
+    ADD CONSTRAINT fksujet FOREIGN KEY (topic) REFERENCES topic(name);
+
+
+
+
+ALTER TABLE ONLY message
+    ADD CONSTRAINT fkuser FOREIGN KEY (sender) REFERENCES "user"(name);
+
+
+
+
+ALTER TABLE ONLY topic
+    ADD CONSTRAINT sujet_fk FOREIGN KEY (creator) REFERENCES "user"(name);
+
+
+
+ALTER TABLE ONLY "user"
+    ADD CONSTRAINT user_name_fkey FOREIGN KEY (name) REFERENCES nicknames(nickname);
+
