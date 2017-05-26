@@ -206,8 +206,10 @@ router.post('/sendMessage',function (req,res,next) {
                 name = r.rows[0].name;
                 avatar = r.rows[0].avatar;
                 var txt = req.body.text.toLowerCase();
-                banned = JSON.stringify( fs.BANNED_WORD )
-                for(word in banned){
+                banned = JSON.stringify( fs.BANNED_WORD );
+                console.log(banned);
+                for(i=0; i<banned.length; i++){
+                    word = banned[i];
                     console.log(word);
                     badWord= new RegExp('\\b'+word+'\\b', 'g');
                     txt = txt.replace(badWord,'*****');

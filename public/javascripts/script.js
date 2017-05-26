@@ -43,7 +43,7 @@ $(document).ready(function () {
                 '</div> </a></div><div class="description">'+message.text + '</div> <div class="meta left floated">' +
                 '<span class="date">' +message.date + '</span>'+
                 '</div> ' +
-                '</div></div>  </div> </div>');
+                '</div></div>  </div> </div><div class="row"></div> ');
         }else{
             $('.grid').append('<div class="row">' +
                 '<div class="column">  <div class="ui card segment inverted red"><div class="content"><div class="meta right floated">' +
@@ -53,7 +53,7 @@ $(document).ready(function () {
                 '</div> </a></div><div class="description">'+message.text + '</div> <div class="meta left floated">' +
                 '<span class="date">' +message.date + '</span>'+
                 '</div>' +
-                '</div></div>  </div> <div class="column"></div></div>');
+                '</div></div>  </div> <div class="column"></div></div><div class="row"></div>');
         }
 
     }
