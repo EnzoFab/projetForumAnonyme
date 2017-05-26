@@ -206,8 +206,7 @@ router.post('/sendMessage',function (req,res,next) {
                 name = r.rows[0].name;
                 avatar = r.rows[0].avatar;
                 var txt = req.body.text.toLowerCase();
-                banned = JSON.stringify( fs.BANNED_WORD );
-                var rgx = new RegExp(banned.join(""),'gi');
+                var rgx = new RegExp(fs.BANNED_WORD.join(""),'gi');
                 txt = str.replace(rgx,'*****');
                 console.log(txt);
                 pool.pgQuery('INSERT INTO public.message(textmessage, datesending, topic, sender)VALUES ($1, $2, $3, $4)',
