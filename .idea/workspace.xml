@@ -24,8 +24,8 @@
       <file leaf-file-name="user.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/user.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="207" column="54" lean-forward="false" selection-start-line="207" selection-start-column="54" selection-end-line="207" selection-end-column="54" />
+            <state relative-caret-position="161">
+              <caret line="209" column="25" lean-forward="false" selection-start-line="209" selection-start-column="25" selection-end-line="209" selection-end-column="25" />
               <folding>
                 <element signature="e#0#41#0" expanded="false" />
                 <element signature="e#1100#1277#0" expanded="false" />
@@ -573,14 +573,7 @@
       <workItem from="1495552733151" duration="27163000" />
       <workItem from="1495628733793" duration="21647000" />
       <workItem from="1495721610612" duration="29839000" />
-      <workItem from="1495793346301" duration="5124000" />
-    </task>
-    <task id="LOCAL-00014" summary="Insert User">
-      <created>1495242880182</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1495242880182</updated>
+      <workItem from="1495793346301" duration="5299000" />
     </task>
     <task id="LOCAL-00015" summary="Creation Topic">
       <created>1495303344998</created>
@@ -918,11 +911,18 @@
       <option name="project" value="LOCAL" />
       <updated>1495798298834</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="Test Deployement">
+      <created>1495798481424</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1495798481424</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="339596000" />
+    <option name="totallyTimeSpent" value="339771000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1326,8 +1326,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/user.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="207" column="54" lean-forward="false" selection-start-line="207" selection-start-column="54" selection-end-line="207" selection-end-column="54" />
+        <state relative-caret-position="161">
+          <caret line="209" column="25" lean-forward="false" selection-start-line="209" selection-start-column="25" selection-end-line="209" selection-end-column="25" />
           <folding>
             <element signature="e#0#41#0" expanded="false" />
             <element signature="e#1100#1277#0" expanded="false" />
