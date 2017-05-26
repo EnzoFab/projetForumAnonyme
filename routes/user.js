@@ -208,7 +208,7 @@ router.post('/sendMessage',function (req,res,next) {
                 var txt = req.body.text.toLowerCase();
                 for(word in fs.BANNED_WORD){
                     badWord= new RegExp(word, 'g');
-                    txt = txt.replace(badWord);
+                    txt = txt.replace(badWord,'*****');
                 }
                 console.log(txt);
                 pool.pgQuery('INSERT INTO public.message(textmessage, datesending, topic, sender)VALUES ($1, $2, $3, $4)',
