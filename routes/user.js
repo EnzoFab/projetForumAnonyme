@@ -209,10 +209,12 @@ router.post('/sendMessage',function (req,res,next) {
                 var txt = req.body.text.toLowerCase();
                 filter  = new Filter();
                 filter.addWords(fs.BANNED_WORD);
-                txt = filter.clean(txt);
-                console.log(txt);
+                filter.addWords(fs.BANNED_NAME);
+                txt = filter.clean(txt); // remove all name and insults from the text
+
+
                 pool.pgQuery('INSERT INTO public.message(textmessage, datesending, topic, sender)VALUES ($1, $2, $3, $4)',
-                [req.body.text, new Date(),req.body.topic, name],function (err, reslt) {// insert the new message and send back name and avatar
+                [txt, new Date(),req.body.topic, name],function (err, reslt) {// insert the new message and send back name and avatar
                     if(err)
                         res.send('error');
                     else {
