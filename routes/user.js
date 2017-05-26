@@ -8,9 +8,10 @@ const pool = require('../conf/query'); // make queries
 const passwordHash = require('password-hash');
 var date = require('date-and-time');
 var fs = require('../conf/filesRead');
+var Filter = require('bad-words');
 var randtoken = require('rand-token').generator({
     chars: 'a-z'
-});; // create a random token in lowerCase
+}); // create a random token in lowerCase
 
 
 
@@ -206,8 +207,9 @@ router.post('/sendMessage',function (req,res,next) {
                 name = r.rows[0].name;
                 avatar = r.rows[0].avatar;
                 var txt = req.body.text.toLowerCase();
-                var rgx = new RegExp(fs.BANNED_WORD.join(""),'gi');
-                txt = txt.replace(rgx,'*****');
+                filter  = new Filter();
+                filter.addWords(fs.BANNED_WORD);
+                txt = filter.clean(txt);
                 console.log(txt);
                 pool.pgQuery('INSERT INTO public.message(textmessage, datesending, topic, sender)VALUES ($1, $2, $3, $4)',
                 [req.body.text, new Date(),req.body.topic, name],function (err, reslt) {// insert the new message and send back name and avatar
