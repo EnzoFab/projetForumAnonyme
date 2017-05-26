@@ -1,16 +1,16 @@
 var express = require('express');
 var router = express.Router();
 const pool = require('../conf/query'); // make queries
-var image = require('../conf/filesRead');
+var fs = require('../conf/filesRead');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('home', { title: 'Free2talk', avatars :image.AVATAR_LIST  });
+    res.render('home', { title: 'Free2talk', avatars :fs.AVATAR_LIST  });
 });
 
 
 router.get('/home', function (req,res,next) {
-    res.render('home', { title: 'Free2talk', avatars :image.AVATAR_LIST });
+    res.render('home', { title: 'Free2talk', avatars :fs.AVATAR_LIST });
 });
 
 
@@ -37,26 +37,26 @@ router.get('/checkCookie',function (req, res, next) {
 router.get('/search/user/:n',function (req, res, next) {
     if(req.cookies.UserCookie === undefined){
         message = "Not connected";
-        res.render('error', {title:'Free2talk',errorMessage: message, avatars :image.AVATAR_LIST } );
+        res.render('error', {title:'Free2talk',errorMessage: message, avatars :fs.AVATAR_LIST } );
     }else{
         pool.pgQuery('SELECT count(*) as nb FROM public.user WHERE token =$1',[req.cookies.UserCookie],
         function (e,r) {
            if(e) {
                message = "An error has occured "+e;
-               res.render('error', {title:'Free2talk',errorMessage: message, avatars :image.AVATAR_LIST } );
+               res.render('error', {title:'Free2talk',errorMessage: message, avatars :fs.AVATAR_LIST } );
            }else if(r.rows[0].nb == 0 ){
                message = "Not connected";
-               res.render('error', {title:'Free2talk',errorMessage: message, avatars :image.AVATAR_LIST } );
+               res.render('error', {title:'Free2talk',errorMessage: message, avatars :fs.AVATAR_LIST } );
            }else {
                pool.pgQuery('SELECT name, avatar FROM public.user WHERE name like $1',['%'+req.params.n+'%'],
                    function (er,rs) {
                    if(er){
                        message = "An error has occured " +er;
-                       res.render('error', {title:'Free2talk',errorMessage: message, avatars :image.AVATAR_LIST } );
+                       res.render('error', {title:'Free2talk',errorMessage: message, avatars :fs.AVATAR_LIST } );
                    }else{
                        console.log("RESULTAT "+ rs.rows);
                        res.render('user/search', {title:'Free2talk',
-                           avatars :image.AVATAR_LIST, result: rs.rows } );
+                           avatars :fs.AVATAR_LIST, result: rs.rows } );
                    }
                });
            }
@@ -68,27 +68,27 @@ router.get('/search/user/:n',function (req, res, next) {
 router.get('/search/topic/:n',function (req, res, next) {
     if(req.cookies.UserCookie === undefined){
         message = "Not connected";
-        res.render('error', {title:'Free2talk',errorMessage: message, avatars :image.AVATAR_LIST } );
+        res.render('error', {title:'Free2talk',errorMessage: message, avatars :fs.AVATAR_LIST } );
     }else{
         pool.pgQuery('SELECT count(*) as nb FROM public.user WHERE token =$1',[req.cookies.UserCookie],
             function (e,r) {
                 if(e) {
                     message = "An error has occured "+e;
-                    res.render('error', {title:'Free2talk',errorMessage: message, avatars :image.AVATAR_LIST } );
+                    res.render('error', {title:'Free2talk',errorMessage: message, avatars :fs.AVATAR_LIST } );
                 }else if(r.rows[0].nb == 0 ){
                     message = "Not connected";
-                    res.render('error', {title:'Free2talk',errorMessage: message, avatars :image.AVATAR_LIST } );
+                    res.render('error', {title:'Free2talk',errorMessage: message, avatars :fs.AVATAR_LIST } );
                 }else {
                     pool.pgQuery('SELECT T.name, T.color, T.creator, T.creationDate, T.category, U.avatar, Count(M.idmessage) as nbmessage FROM public.topic T inner join public.user U on T.creator = U.name  Left Join public.message M on T.name = M.topic WHERE T.name like $1 Group by T.name, T.color, T.creator, T.creationDate, T.category, U.avatar Order by Count(M.idmessage) Desc'
                         ,['%'+req.params.n+'%'],
                         function (er,rs) {
                             if(er){
                                 message = "An error has occured "+er;
-                                res.render('error', {title:'Free2talk',errorMessage: message, avatars :image.AVATAR_LIST } );
+                                res.render('error', {title:'Free2talk',errorMessage: message, avatars :fs.AVATAR_LIST } );
                             }else{
                                 console.log("RESULTAT "+ rs.rows);
                                 res.render('topics/search', {title:'Free2talk',
-                                     avatars :image.AVATAR_LIST, result: rs.rows } );
+                                     avatars :fs.AVATAR_LIST, result: rs.rows } );
                             }
                         });
                 }
