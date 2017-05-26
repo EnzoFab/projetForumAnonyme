@@ -207,13 +207,8 @@ router.post('/sendMessage',function (req,res,next) {
                 avatar = r.rows[0].avatar;
                 var txt = req.body.text.toLowerCase();
                 banned = JSON.stringify( fs.BANNED_WORD );
-                console.log(banned);
-                for(i=0; i<banned.length; i++){
-                    word = banned[i];
-                    console.log(word);
-                    badWord= new RegExp('\\b'+word+'\\b', 'g');
-                    txt = txt.replace(badWord,'*****');
-                }
+                var rgx = new RegExp(banned.join(""),'gi');
+                txt = str.replace(rgx,'*****');
                 console.log(txt);
                 pool.pgQuery('INSERT INTO public.message(textmessage, datesending, topic, sender)VALUES ($1, $2, $3, $4)',
                 [req.body.text, new Date(),req.body.topic, name],function (err, reslt) {// insert the new message and send back name and avatar
