@@ -223,7 +223,7 @@ router.post('/sendMessage',function (req,res,next) {
                                 if(e)
                                     res.send('error');
                                 else{
-                                    res.send({name: name, avatar:avatar, text:req.body.text, id :r.rows[0].idmessage });
+                                    res.send({name: name, avatar:avatar, text:txt, id :r.rows[0].idmessage });
                                 }
                             }) ;
                     }
