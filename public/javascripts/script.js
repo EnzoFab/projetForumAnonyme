@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+    var audio = new Audio('/sound/notification.mp3');
 
     //socket.emit('connection', "hum");
 
@@ -8,7 +8,7 @@ $(document).ready(function () {
         topicName = window.location.href.split("/topic")[1]; // get the topicName
 
        var socket =io(topicName,{'force new connection': true}); // room
-       console.log(socket);
+
        socket.on('connected',function () {
            console.log('connected to the room' +topicName );
        });
@@ -19,7 +19,7 @@ $(document).ready(function () {
 
 
         socket.on('message_received', function (data) {
-            console.log("message received");
+            audio.play();
             appendNewMessage(data,false);
         });
 
@@ -138,8 +138,6 @@ $(document).ready(function () {
 
     get("/category/allCategories",
         function (data) {
-            console.log(JSON.stringify(data));
-            console.log(data.length);
             for(i=0;i< data.length; i++){
                 $("#category").append("<option value="+data[i].namecat +">"+data[i].namecat+"</option>");
                 $("#categoryMenu").append("<a class='item' href='/category/" + data[i].namecat + "'>"
@@ -151,7 +149,6 @@ $(document).ready(function () {
         },'json'); // load all Categories
 
     get('/checkCookie',function (data) {
-            console.log(data);
             if(data == 'true'){ // if there isn't a cookie data = true and we display the modal
                displayModal();
             }
@@ -201,8 +198,7 @@ $(document).ready(function () {
 
                 onApprove:function () {
 
-                    console.log($('#category').val());
-                    // need to change the value
+
 
                     // if one input isn't filled
                     if($('input[name="color"]').val() == '' ||
@@ -242,7 +238,6 @@ $(document).ready(function () {
                                 category: $('#category').val()
                             },
                             function (data) {
-                                console.log(data);
                                 if(data == 'success'){
                                     $("#topicMessage").fadeOut(function () {
                                         $("#succesTopic").html("Topic created");
@@ -294,7 +289,6 @@ $(document).ready(function () {
                                 password: $('#loginPassword').val()
                             },
                             function (data) {
-                                console.log(data)
                                 if(data ="success"){
                                     location.reload();
                                     return true;
@@ -313,7 +307,6 @@ $(document).ready(function () {
 
 
                 onApprove : function() {
-                    console.log($('#nickname').val())
                     if($('#nickname').val() == ''||
                         $('#password').val() =='' ||
                         $('#avatar').val() == ''){
@@ -331,7 +324,7 @@ $(document).ready(function () {
                                 avatar: $('#avatar').val()
                             },
                             function (data) {
-                                console.log(data)
+
                                 if(data ="success"){
                                     location.reload();
                                     return true;
