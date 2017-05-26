@@ -7,7 +7,7 @@ var pseudo = require('../conf/filesRead');
 const pool = require('../conf/query'); // make queries
 const passwordHash = require('password-hash');
 var date = require('date-and-time');
-var image = require('../conf/filesRead');
+var fs = require('../conf/filesRead');
 var randtoken = require('rand-token').generator({
     chars: 'a-z'
 });; // create a random token in lowerCase
@@ -17,24 +17,24 @@ var randtoken = require('rand-token').generator({
 router.get('/',function (req, res,next) { // get all user sorted by the number of message the have sent
     if(req.cookies.UserCookie === undefined){
         message = "Not connected";
-        res.render('error', {title:'Free2talk',errorMessage: message, avatars :image.AVATAR_LIST } );
+        res.render('error', {title:'Free2talk',errorMessage: message, avatars :fs.AVATAR_LIST } );
     }else{
         pool.pgQuery('SELECT count(*) as nb FROM public.user WHERE token =$1',[req.cookies.UserCookie],
             function (e,r) {
                 if(e){
                     message = "An error has occured";
-                    res.render('error', {title:'Free2talk',errorMessage: message, avatars :image.AVATAR_LIST } );
+                    res.render('error', {title:'Free2talk',errorMessage: message, avatars :fs.AVATAR_LIST } );
                 }else if(r.rows[0].nb == 0){
                     message = "Not connected";
-                    res.render('error', {title:'Free2talk',errorMessage: message, avatars :image.AVATAR_LIST } );
+                    res.render('error', {title:'Free2talk',errorMessage: message, avatars :fs.AVATAR_LIST } );
                 }else{
                     pool.pgQuery('SELECT U.name, U.avatar FROM public.user U Left Join public.message M on U.name = M.sender Group by U.name Order by Count(M.idmessage) Desc',
                         '', function (err,rslt) {
                             if(err){
                                 message = "Error this error " + err;
-                                res.render('error', {title:'Free2talk',errorMessage: message, avatars :image.AVATAR_LIST } );
+                                res.render('error', {title:'Free2talk',errorMessage: message, avatars :fs.AVATAR_LIST } );
                             }else{
-                                res.render("user/allUsers",{title:'Free2talk',allUser: rslt.rows,avatars :image.AVATAR_LIST })
+                                res.render("user/allUsers",{title:'Free2talk',allUser: rslt.rows,avatars :fs.AVATAR_LIST })
                             }
                         });
                 }
@@ -46,19 +46,19 @@ router.get('/',function (req, res,next) { // get all user sorted by the number o
 router.get('/mySpace',function (req, res, next) {
     if(req.cookies.UserCookie === undefined){
         message = "Not connected" ;
-        res.render('error', {title:'Free2talk',errorMessage: message, avatars :image.AVATAR_LIST } );
+        res.render('error', {title:'Free2talk',errorMessage: message, avatars :fs.AVATAR_LIST } );
     }else{
         pool.pgQuery('SELECT name, avatar, count(*) as nb FROM public.user WHERE token = $1 GROUP BY name, avatar',
             [req.cookies.UserCookie],function (e,r) {
                 if(e){
                     message = "Error this error " + e;
-                    res.render('error', {title:'Free2talk',errorMessage: message, avatars :image.AVATAR_LIST } );
+                    res.render('error', {title:'Free2talk',errorMessage: message, avatars :fs.AVATAR_LIST } );
                 }else if(r.rows[0].nb ==0){
                     message = "Not connected" ;
-                    res.render('error', {title:'Free2talk',errorMessage: message, avatars :image.AVATAR_LIST } );
+                    res.render('error', {title:'Free2talk',errorMessage: message, avatars :fs.AVATAR_LIST } );
                 }else {
                     res.render("user/me",{title:'Free2talk', nickname: r.rows[0].name,avatar:r.rows[0].avatar,
-                        avatars :image.AVATAR_LIST });
+                        avatars :fs.AVATAR_LIST });
                 }
             });
 
@@ -205,9 +205,14 @@ router.post('/sendMessage',function (req,res,next) {
             }else{
                 name = r.rows[0].name;
                 avatar = r.rows[0].avatar;
-                // insert the new message and send back name and avatar
+                var txt = req.body.text.toLowerCase();
+                for(word in fs.BANNED_WORD){
+                    badWord= new RegExp(word, 'g');
+                    txt = txt.replace(badWord);
+                }
+                console.log(txt);
                 pool.pgQuery('INSERT INTO public.message(textmessage, datesending, topic, sender)VALUES ($1, $2, $3, $4)',
-                [req.body.text, new Date(),req.body.topic, name],function (err, reslt) {
+                [req.body.text, new Date(),req.body.topic, name],function (err, reslt) {// insert the new message and send back name and avatar
                     if(err)
                         res.send('error');
                     else {
@@ -275,33 +280,33 @@ router.get('/registredUser',function (req,res,next) {
 router.get('/:n',function (req,res,next) {
    if(req.cookies.UserCookie === undefined){
        message = "Not connected";
-       res.render('error', {title:'Free2talk',errorMessage: message, avatars :image.AVATAR_LIST } );
+       res.render('error', {title:'Free2talk',errorMessage: message, avatars :fs.AVATAR_LIST } );
    }else{
        pool.pgQuery('SELECT count(*) as nb FROM public.user WHERE token =$1',[req.cookies.UserCookie],
        function (e,r) {
            if(e){
                message = "An error has occured";
-               res.render('error', {title:'Free2talk',errorMessage: message, avatars :image.AVATAR_LIST } );
+               res.render('error', {title:'Free2talk',errorMessage: message, avatars :fs.AVATAR_LIST } );
            }else if(r.rows[0].nb == 0){
                message = "Not connected";
-               res.render('error', {title:'Free2talk',errorMessage: message, avatars :image.AVATAR_LIST } );
+               res.render('error', {title:'Free2talk',errorMessage: message, avatars :fs.AVATAR_LIST } );
            }else{
                pool.pgQuery("SELECT Count(*) as nb FROM public.user WHERE name=$1",[req.params.n],
                    function (err, rslt ) {
                        if(err){
                            message = "An error has occured "+err ;
-                           res.render('error', {title:'Free2talk',errorMessage: message, avatars :image.AVATAR_LIST } );
+                           res.render('error', {title:'Free2talk',errorMessage: message, avatars :fs.AVATAR_LIST } );
                        }else if(rslt.rows[0].nb == 0){
                            message = "The user " + req.params.n + " doesn't exist" ;
-                           res.render('error', {title:'Free2talk',errorMessage: message, avatars :image.AVATAR_LIST } );
+                           res.render('error', {title:'Free2talk',errorMessage: message, avatars :fs.AVATAR_LIST } );
                        }else{
                            pool.pgQuery("SELECT * FROM public.user WHERE name=$1", [req.params.n],
                                function (e,r) {
                                    if(e){
                                        message = "An error has occured "+e ;
-                                       res.render('error', {title:'Free2talk',errorMessage: message, avatars :image.AVATAR_LIST } );
+                                       res.render('error', {title:'Free2talk',errorMessage: message, avatars :fs.AVATAR_LIST } );
                                    }else {
-                                       res.render('user/user',{title:'Free2talk',userData:r.rows[0], avatars :image.AVATAR_LIST });
+                                       res.render('user/user',{title:'Free2talk',userData:r.rows[0], avatars :fs.AVATAR_LIST });
                                    }
 
                                });

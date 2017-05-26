@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var helmet = require('helmet');
 
 
 var index = require('./routes/index');
@@ -17,6 +18,7 @@ var app = express();
 
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+app.use(helmet());
 
 
 var slashes = require("connect-slashes");
